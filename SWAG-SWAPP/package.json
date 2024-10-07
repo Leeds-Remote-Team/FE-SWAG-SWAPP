@@ -40,9 +40,9 @@
     "react-native-screens": "3.31.1",
     "react-native-vector-icons": "^10.2.0",
 
-    "react-native-web": "~0.19.10"
-
     "react-native-web": "~0.19.10",
+
+ 
     "supabase": "^1.200.3"
 
   },

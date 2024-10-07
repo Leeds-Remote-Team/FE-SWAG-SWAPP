@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import { View, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Header } from "./Header";
 import { Link } from "expo-router";
@@ -19,7 +12,6 @@ import {
 } from "../Helpers/fetchSortedClothes";
 import { useState, useEffect } from "react";
 import { ActivityIndicator } from "react-native";
-// import { fetchAllClothes } from "@/Helpers/fetchAllClothes";
 
 const Dashboard = () => {
   const user_id = 3;
@@ -30,11 +22,11 @@ const Dashboard = () => {
   const [newest, setNewest] = useState([]);
   const [needsSomeLoving, setNeedsSomeLoving] = useState([]);
 
-  useEffect(() => {
+  const fetchData = (searchText = "") => {
     setIsLoading(true);
     setIsError(false);
 
-    fetchMostPopularClothes(user_id)
+    fetchMostPopularClothes(user_id, searchText)
       .then((popular) => {
         setMostPopular(popular);
       })
@@ -42,7 +34,7 @@ const Dashboard = () => {
         setIsError(true);
       });
 
-    fetchNewestClothes(user_id)
+    fetchNewestClothes(user_id, searchText)
       .then((newClothes) => {
         setNewest(newClothes);
       })
@@ -50,7 +42,7 @@ const Dashboard = () => {
         setIsError(true);
       });
 
-    fetchNeedsSomeLovingClothes(user_id)
+    fetchNeedsSomeLovingClothes(user_id, searchText)
       .then((lovingClothes) => {
         setNeedsSomeLoving(lovingClothes);
       })
@@ -58,7 +50,7 @@ const Dashboard = () => {
         setIsError(true);
       });
 
-    fetchAllAccessories(user_id)
+    fetchAllAccessories(user_id, searchText)
       .then((data) => {
         setAccessories(data);
       })
@@ -68,6 +60,10 @@ const Dashboard = () => {
       .finally(() => {
         setIsLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchData();
   }, [user_id]);
 
   if (isLoading) {
@@ -76,7 +72,7 @@ const Dashboard = () => {
 
   return (
     <View style={styles.container}>
-      <Header />
+      <Header onSearch={fetchData} />
       <ScrollView>
         <ClothesContainer title="Favourite Clothes" items={mostPopular} />
         <ClothesContainer title="Most Recent Clothes" items={newest} />

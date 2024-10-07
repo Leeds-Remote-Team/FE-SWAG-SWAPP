@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
-export const Header = () => {
+export const Header = ({ onSearch }) => {
+  const [searchText, setSearchText] = useState("");
+
+  const handleSearch = () => {
+    onSearch(searchText);
+  };
+
   return (
     <View style={styles.header}>
       <TouchableOpacity>
         <Icon name="home" size={40} />
       </TouchableOpacity>
-      <TextInput placeholder="Search a keyword here" style={styles.searchBar} />
+      <TextInput
+        placeholder="Search a keyword here"
+        style={styles.searchBar}
+        value={searchText}
+        onChangeText={setSearchText}
+      />
+      <TouchableOpacity onPress={handleSearch}>
+        <Icon name="search" size={40} />
+      </TouchableOpacity>
+
       <TouchableOpacity>
         <Icon name="person" size={40} />
       </TouchableOpacity>
