@@ -60,6 +60,12 @@ export default function newItem() {
 
     router.push("/Dashboard");
   };
+
+  const handleRetake = () => {
+    console.log("In handler");
+    setClothesItems([{ _tags_map: [] }]);
+    router.push("/camera/camera");
+  };
   const tagKeys = Object.keys({ ...tag });
   let tagValues = [];
   tagValues = [Object.values(tag)];
@@ -94,6 +100,9 @@ export default function newItem() {
       </View>
       <TouchableOpacity onPress={handlePress} disabled={posting}>
         <Icon name="add" size={40} />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={handleRetake} disabled={posting}>
+        <Icon name="reload-circle" size={40} />
       </TouchableOpacity>
     </View>
   );
