@@ -32,12 +32,12 @@ const Dashboard = () => {
   const [clothesItems, setClothesItems] = useContext(ClothesContext);
   const router = useRouter();
 
-  useEffect(() => {
+  const fetchData = (searchText = "") => {
     setClothesItems([{ _tags_map: [] }]);
     setIsLoading(true);
     setIsError("");
 
-    fetchMostPopularClothes(user_id)
+    fetchMostPopularClothes(user_id, searchText)
       .then((popular) => {
         setMostPopular(popular);
       })
@@ -45,7 +45,7 @@ const Dashboard = () => {
         setIsError("Failed to load popular clothes.");
       });
 
-    fetchNewestClothes(user_id)
+    fetchNewestClothes(user_id, searchText)
       .then((newClothes) => {
         setNewest(newClothes);
       })
@@ -53,7 +53,7 @@ const Dashboard = () => {
         setIsError("Failed to load newest clothes.");
       });
 
-    fetchNeedsSomeLovingClothes(user_id)
+    fetchNeedsSomeLovingClothes(user_id, searchText)
       .then((lovingClothes) => {
         setNeedsSomeLoving(lovingClothes);
       })
@@ -61,7 +61,7 @@ const Dashboard = () => {
         setIsError("Failed to load clothes that need some love.");
       });
 
-    fetchAllAccessories(user_id)
+    fetchAllAccessories(user_id, searchText)
       .then((data) => {
         setAccessories(data);
       })
@@ -71,6 +71,10 @@ const Dashboard = () => {
       .finally(() => {
         setIsLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchData();
   }, [user_id]);
 
   if (isLoading) {
@@ -94,10 +98,26 @@ const Dashboard = () => {
     <View style={styles.container}>
       <Header />
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <ClothesContainer title="Favourite Clothes" items={mostPopular} onItemClick={handleItemClick}/>
-        <ClothesContainer title="Most Recent Clothes" items={newest} onItemClick={handleItemClick}/>
-        <ClothesContainer title="Accessories" items={accessories} onItemClick={handleItemClick}/>
-        <ClothesContainer title="These need some love" items={needsSomeLoving} onItemClick={handleItemClick}/>
+        <ClothesContainer
+          title="Favourite Clothes"
+          items={mostPopular}
+          onItemClick={handleItemClick}
+        />
+        <ClothesContainer
+          title="Most Recent Clothes"
+          items={newest}
+          onItemClick={handleItemClick}
+        />
+        <ClothesContainer
+          title="Accessories"
+          items={accessories}
+          onItemClick={handleItemClick}
+        />
+        <ClothesContainer
+          title="These need some love"
+          items={needsSomeLoving}
+          onItemClick={handleItemClick}
+        />
       </ScrollView>
       <View style={styles.addButtonContainer}>
         <TouchableOpacity style={styles.addButton}>

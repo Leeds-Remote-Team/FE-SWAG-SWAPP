@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   TextInput,
@@ -9,8 +9,13 @@ import {
 import Icon from "react-native-vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 
-export const Header = () => {
+export const Header = ({ onSearch }) => {
+  const [searchText, setSearchText] = useState("");
   const router = useRouter();
+
+  const handleSearch = () => {
+    onSearch(searchText);
+  };
 
   const handleLogin = () => {
     Alert.alert("Success!", "Login Here.");
@@ -29,9 +34,19 @@ export const Header = () => {
       </TouchableOpacity>
       <TextInput
         placeholder="Search a keyword here"
-        placeholderTextColor="#A0A0A0"
         style={styles.searchBar}
+        value={searchText}
+        onChangeText={setSearchText}
       />
+      <TouchableOpacity onPress={handleSearch}>
+        <Icon
+          name="search"
+          size={40}
+          style={styles.searchBar}
+          placeholderTextColor="#A0A0A0"
+        />
+      </TouchableOpacity>
+
       <TouchableOpacity style={styles.iconButton} onPress={handleLogin}>
         <Icon name="person" size={30} color="#4B4B4B" />
       </TouchableOpacity>
@@ -44,11 +59,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     padding: 15,
-    backgroundColor: "#FFFFFF", 
+    backgroundColor: "#FFFFFF",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderBottomColor: "#E0E0E0", 
-    shadowColor: "#000", 
+    borderBottomColor: "#E0E0E0",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
@@ -58,16 +73,16 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 15,
     borderWidth: 1,
-    borderColor: "#E0E0E0", 
+    borderColor: "#E0E0E0",
     paddingHorizontal: 15,
     paddingVertical: 8,
-    borderRadius: 10, 
-    backgroundColor: "#F9F9F9", 
+    borderRadius: 10,
+    backgroundColor: "#F9F9F9",
   },
   iconButton: {
-    padding: 8, 
-    borderRadius: 50, 
-    backgroundColor: "#EFEFEF", 
+    padding: 8,
+    borderRadius: 50,
+    backgroundColor: "#EFEFEF",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,

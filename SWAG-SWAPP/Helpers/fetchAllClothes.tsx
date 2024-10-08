@@ -6,7 +6,7 @@ export const fetchAllClothes = (user_id) => {
   return axios
     .get(url)
     .then((response) => {
-      return response.data;  // Assuming the data is in the `data` property of the response
+      return response.data;  
     })
     .catch((error) => {
       console.log(error)
