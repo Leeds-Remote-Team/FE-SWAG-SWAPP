@@ -1,13 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Text,
-  Alert,
-  ActivityIndicator,
-} from "react-native";
+import { View, StyleSheet, ScrollView, TouchableOpacity, Text, Alert, ActivityIndicator } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Header } from "./Header";
 import { Link } from "expo-router";
@@ -89,35 +81,19 @@ const Dashboard = () => {
     );
   }
 
-  const handleItemClick = () => {
-    Alert.alert("Success!", "Welcome To Single Page.");
+  const handleItemClick = (item) => {
+    Alert.alert("Success!", `Clicked on ${item.name}`);
     router.push("/clothes/clothes_item");
   };
 
   return (
     <View style={styles.container}>
-      <Header />
+      <Header onSearch={fetchData} />
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <ClothesContainer
-          title="Favourite Clothes"
-          items={mostPopular}
-          onItemClick={handleItemClick}
-        />
-        <ClothesContainer
-          title="Most Recent Clothes"
-          items={newest}
-          onItemClick={handleItemClick}
-        />
-        <ClothesContainer
-          title="Accessories"
-          items={accessories}
-          onItemClick={handleItemClick}
-        />
-        <ClothesContainer
-          title="These need some love"
-          items={needsSomeLoving}
-          onItemClick={handleItemClick}
-        />
+        <ClothesContainer title="Favourite Clothes" items={mostPopular} onItemClick={handleItemClick} />
+        <ClothesContainer title="Most Recent Clothes" items={newest} onItemClick={handleItemClick} />
+        <ClothesContainer title="Accessories" items={accessories} onItemClick={handleItemClick} />
+        <ClothesContainer title="These need some love" items={needsSomeLoving} onItemClick={handleItemClick} />
       </ScrollView>
       <View style={styles.addButtonContainer}>
         <TouchableOpacity style={styles.addButton}>
@@ -165,30 +141,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#e74c3c",
     textAlign: "center",
-  },
-  card: {
-    margin: 10,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 10,
-    backgroundColor: "#ffffff",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 2,
-  },
-  image: {
-    width: 100,
-    height: 100,
-    borderRadius: 10,
-  },
-  title: {
-    marginTop: 10,
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#34495e",
   },
 });
 
