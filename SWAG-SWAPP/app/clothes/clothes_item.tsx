@@ -10,7 +10,11 @@ import {
 } from "react-native";
 import { Header } from "../Header";
 import axios from "axios";
-import { useRouter } from "expo-router";
+import {
+  useGlobalSearchParams,
+  useLocalSearchParams,
+  useRouter,
+} from "expo-router";
 import { UserAccountContext } from "../_layout";
 
 const clothes_item = () => {
@@ -19,24 +23,33 @@ const clothes_item = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(null);
 
+  const { item_id } = useLocalSearchParams();
+
+  console.log(item_id, "<-- loc");
+
   const router = useRouter();
-  console.log(router.params, "this is router query");
-  const { item_id } = router.query;
+  console.log(router, "this is router query");
+
+  // const {item_id} = router.query;
+
+  // console.log(item_id, "this item_id from clothes_item");
 
   useEffect(() => {
-    axios
-
-      .get(
-        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
-      )
-      .then((response) => {
-        setClotheItem(response.data[0]);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setIsError(`Fail to load item. Error: ${err}`);
-        setIsLoading(false);
-      });
+    if (item_id) {
+      axios
+        .get(
+          `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
+        )
+        .then((response) => {
+          console.log("reaching ..then from get");
+          setClotheItem(response.data[0]);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          setIsError(`Fail to load item. Error: ${err}`);
+          setIsLoading(false);
+        });
+    }
   }, [userAccount, item_id]);
 
   if (isLoading) {
@@ -107,7 +120,7 @@ const clothes_item = () => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        {/* <Header onSearch={undefined} /> */}
+        <Header onSearch={undefined} />
         <Text style={styles.name}>
           {clotheItem.name || "Clothes Item Name"}
         </Text>

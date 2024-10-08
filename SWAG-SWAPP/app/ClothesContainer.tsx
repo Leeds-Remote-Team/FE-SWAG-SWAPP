@@ -16,7 +16,7 @@ export const ClothesContainer = ({ title, items, onItemClick }) => {
     console.log(item_id, "from clothesContainer");
     router.push({
       pathname: "/clothes/clothes_item",
-      params: { item_id: item_id },
+      params: { item_id },
     });
   };
 
@@ -28,7 +28,7 @@ export const ClothesContainer = ({ title, items, onItemClick }) => {
           <Pressable
             key={item.item_id}
             style={styles.card}
-            onPress={() => handleClothes(item.item_id)}
+            onPress={() => onItemClick(item)}
           >
             <Image source={{ uri: item.img_url }} style={styles.image} />
             <Text style={styles.itemText}>{item.category}</Text>
