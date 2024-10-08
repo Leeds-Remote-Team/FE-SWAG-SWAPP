@@ -22,13 +22,15 @@ const EditClothesItem = () => {
   const [color, setColor] = useState("");
 
   const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(null);
+  const [isError, setIsError] = useState("");
 
   const router = useRouter();
 
   useEffect(() => {
     axios
-      .get(`https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/3`)
+      .get(
+        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/35`
+      )
       .then((response) => {
         const item = response.data[0];
         setClotheItem(item);
@@ -44,7 +46,7 @@ const EditClothesItem = () => {
   }, [userAccount]);
 
   const handleSubmitEdit = () => {
-    const newDetails = {
+    let newDetails = {
       top_category: topCategory,
       category: category,
       color: color,
@@ -52,12 +54,16 @@ const EditClothesItem = () => {
 
     axios
       .patch(
-        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/3`,
+        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/35`,
         newDetails
       )
       .then(() => {
         Alert.alert("Success!", "Clothes updated successfully.");
         router.push("/clothes/clothes_item");
+        // router.push({
+        //   pathname: "/clothes/clothes_item",
+        //   params: { item_id: clotheItem.item_id },
+        // });
       })
       .catch((err) => {
         Alert.alert("Error", `Failed to update clothes. Error: ${err}`);
@@ -82,7 +88,7 @@ const EditClothesItem = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Header onSearch={undefined} />
+      {/* <Header onSearch={undefined} /> */}
       <Text style={styles.name}>Editing Details</Text>
       <Image
         style={styles.image}
@@ -139,7 +145,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#f8f4f0", 
+    backgroundColor: "#f8f4f0",
   },
   image: {
     width: 300,
@@ -153,7 +159,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 26,
     fontWeight: "bold",
-    color: "#2f3640", 
+    color: "#2f3640",
     marginBottom: 10,
     textAlign: "center",
   },
