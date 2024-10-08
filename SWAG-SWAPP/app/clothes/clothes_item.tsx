@@ -23,7 +23,9 @@ const clothes_item = () => {
 
   useEffect(() => {
     axios
-      .get(`https://swagswapp-api.onrender.com/api/clothes/3/${userAccount.user_id}`)
+      .get(
+        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/35`
+      )
       .then((response) => {
         setClotheItem(response.data[0]);
         setIsLoading(false);
@@ -73,7 +75,7 @@ const clothes_item = () => {
     };
     axios
       .patch(
-        `https://swagswapp-api.onrender.com/api/clothes/3/${userAccount.user_id}`,
+        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/35`,
         newWearUpdate
       )
       .then(() => {
@@ -102,8 +104,10 @@ const clothes_item = () => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Header />
-        <Text style={styles.name}>{clotheItem.name || "Clothes Item Name"}</Text>
+        {/* <Header onSearch={undefined} /> */}
+        <Text style={styles.name}>
+          {clotheItem.name || "Clothes Item Name"}
+        </Text>
         <Image
           style={styles.image}
           source={{
@@ -127,7 +131,10 @@ const clothes_item = () => {
         <Text style={styles.descriptionText}>
           Wear Frequency: {clotheItem.tags.wear_frequency}
         </Text>
-        <TouchableOpacity style={styles.wearTodayButton} onPress={handleWearToday}>
+        <TouchableOpacity
+          style={styles.wearTodayButton}
+          onPress={handleWearToday}
+        >
           <Text style={styles.buttonText}>Wear Today</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.editButton} onPress={handleEdit}>
@@ -155,7 +162,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 26,
     fontWeight: "bold",
-    color: "#2f3640", 
+    color: "#2f3640",
     marginBottom: 10,
     textAlign: "center",
   },
@@ -190,14 +197,14 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   wearTodayButton: {
-    backgroundColor: "#2f3640", 
+    backgroundColor: "#2f3640",
     padding: 15,
     borderRadius: 10,
     marginTop: 20,
     alignItems: "center",
   },
   editButton: {
-    backgroundColor: "#2f3640", 
+    backgroundColor: "#2f3640",
     padding: 15,
     borderRadius: 10,
     marginTop: 15,
@@ -224,7 +231,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontSize: 20,
-    color: "#e74c3c", 
+    color: "#e74c3c",
   },
 });
 
