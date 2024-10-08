@@ -58,7 +58,6 @@ const Dashboard = () => {
 
     fetchNeedsSomeLovingClothes(user_id, searchText)
       .then((lovingClothes) => {
-        console.log(lovingClothes, "loving clothes");
         setNeedsSomeLoving(lovingClothes);
       })
       .catch(() => {
