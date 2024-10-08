@@ -3,7 +3,7 @@ import {
   View,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
+  Pressable,
   Text,
   Alert,
   ActivityIndicator,
@@ -134,11 +134,11 @@ const Dashboard = () => {
         />
       </ScrollView>
       <View style={styles.addButtonContainer}>
-        <TouchableOpacity style={styles.addButton}>
+        <Pressable style={styles.addButton}>
           <Link href="/camera/camera">
             <Icon name="add" size={30} color="white" />
           </Link>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );
