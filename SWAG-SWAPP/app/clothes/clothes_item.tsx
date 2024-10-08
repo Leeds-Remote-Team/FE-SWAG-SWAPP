@@ -20,12 +20,14 @@ const clothes_item = () => {
   const [isError, setIsError] = useState(null);
 
   const router = useRouter();
+  console.log(router.params, "this is router query");
+  const { item_id } = router.query;
 
   useEffect(() => {
     axios
 
       .get(
-        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/35`
+        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
       )
       .then((response) => {
         setClotheItem(response.data[0]);
@@ -35,7 +37,7 @@ const clothes_item = () => {
         setIsError(`Fail to load item. Error: ${err}`);
         setIsLoading(false);
       });
-  }, [userAccount]);
+  }, [userAccount, item_id]);
 
   if (isLoading) {
     return (
@@ -76,7 +78,7 @@ const clothes_item = () => {
     };
     axios
       .patch(
-        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/35`,
+        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`,
         newWearUpdate
       )
       .then(() => {
@@ -112,7 +114,7 @@ const clothes_item = () => {
         <Image
           style={styles.image}
           source={{
-            uri: "https://cdn.grube.de/2021/06/14/80-487-01_1_j21_700.jpg",
+            uri: clotheItem.img_url,
           }}
         />
         <View style={styles.tagContainer}>

@@ -98,8 +98,12 @@ const Dashboard = () => {
     );
   }
 
-  const handleItemClick = (item) => {
-    router.push("/clothes/clothes_item");
+  const handleItemClick = (item_id) => {
+    console.log(item_id, "this is item_id from dashboard");
+    // router.push({
+    //   pathname: "/clothes/clothes_item",
+    //   params: { item_id: item_id },
+    // });
   };
 
   return (
@@ -109,27 +113,27 @@ const Dashboard = () => {
         <ClothesContainer
           title="Favourite Clothes..."
           items={mostPopular}
-          onItemClick={handleItemClick}
+          // onItemClick={(item_id) => handleItemClick(item_id)}
         />
         <ClothesContainer
           title="Recently worn Clothes..."
           items={newest}
-          onItemClick={handleItemClick}
+          // onItemClick={(item_id) => handleItemClick(item_id)}
         />
         <ClothesContainer
           title="Accessories..."
           items={accessories}
-          onItemClick={handleItemClick}
+          // onItemClick={(item_id) => handleItemClick(item_id)}
         />
         <ClothesContainer
           title="Newly added..."
           items={needsSomeLoving}
-          onItemClick={handleItemClick}
+          // onItemClick={(item_id) => handleItemClick(item_id)}
         />
         <ClothesContainer
           title="These need some love..."
           items={newlyAdded}
-          onItemClick={handleItemClick}
+          // onItemClick={(item_id) => handleItemClick(item_id)}
         />
       </ScrollView>
       <View style={styles.addButtonContainer}>

@@ -6,16 +6,18 @@ import {
   Pressable,
   StyleSheet,
   Image,
-  Alert,
 } from "react-native";
 import { useRouter } from "expo-router";
 
 export const ClothesContainer = ({ title, items, onItemClick }) => {
   const router = useRouter();
 
-  const handleClothes = () => {
-    Alert.alert("Success!", "Welcome To Single Clothe Page.");
-    router.push("/clothes/clothes_item");
+  const handleClothes = (item_id) => {
+    console.log(item_id, "from clothesContainer");
+    router.push({
+      pathname: "/clothes/clothes_item",
+      params: { item_id: item_id },
+    });
   };
 
   return (
@@ -26,7 +28,7 @@ export const ClothesContainer = ({ title, items, onItemClick }) => {
           <Pressable
             key={item.item_id}
             style={styles.card}
-            onPress={handleClothes}
+            onPress={() => handleClothes(item.item_id)}
           >
             <Image source={{ uri: item.img_url }} style={styles.image} />
             <Text style={styles.itemText}>{item.category}</Text>
