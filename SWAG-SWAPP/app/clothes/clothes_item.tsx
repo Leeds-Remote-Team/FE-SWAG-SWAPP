@@ -23,7 +23,7 @@ const clothes_item = () => {
 
   useEffect(() => {
     axios
-      .get(`https://swagswapp-api.onrender.com/api/clothes/3/${userAccount.user_id}`)
+      .get(`https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/3`)
       .then((response) => {
         setClotheItem(response.data[0]);
         setIsLoading(false);
@@ -73,7 +73,7 @@ const clothes_item = () => {
     };
     axios
       .patch(
-        `https://swagswapp-api.onrender.com/api/clothes/3/${userAccount.user_id}`,
+        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/3`,
         newWearUpdate
       )
       .then(() => {

@@ -28,7 +28,7 @@ const EditClothesItem = () => {
 
   useEffect(() => {
     axios
-      .get(`https://swagswapp-api.onrender.com/api/clothes/3/${userAccount.user_id}`)
+      .get(`https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/3`)
       .then((response) => {
         const item = response.data[0];
         setClotheItem(item);

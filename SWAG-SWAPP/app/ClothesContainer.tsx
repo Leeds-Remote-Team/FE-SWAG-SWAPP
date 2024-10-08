@@ -1,7 +1,15 @@
 import React from "react";
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Image, Alert } from "react-native";
+import { useRouter } from "expo-router";
 
 export const ClothesContainer = ({ title, items, onItemClick }) => {
+  const router = useRouter();
+
+  const handleClothes = () => {
+    Alert.alert("Success!", "Welcome To Single Clothe Page.");
+    router.push("/clothes/clothes_item");
+  };
+
   return (
     <View style={styles.section}>
       <Text style={styles.title}>{title}</Text>
@@ -10,7 +18,7 @@ export const ClothesContainer = ({ title, items, onItemClick }) => {
           <TouchableOpacity
             key={item.item_id}
             style={styles.card}
-            onPress={() => onItemClick(item.item_id)} 
+            onPress={handleClothes} 
           >
             <Image source={{ uri: item.img_url }} style={styles.image} />
             <Text style={styles.itemText}>{item.category}</Text>
