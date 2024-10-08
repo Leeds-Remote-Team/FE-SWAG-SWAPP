@@ -40,6 +40,7 @@ const Dashboard = () => {
 
     fetchMostPopularClothes(user_id, searchText)
       .then((popular) => {
+        console.log(popular, "popular clothes");
         setMostPopular(popular);
       })
       .catch(() => {
@@ -48,6 +49,7 @@ const Dashboard = () => {
 
     fetchRecentlyWornClothes(user_id, searchText)
       .then((newClothes) => {
+        console.log(newClothes, "new clothes");
         setNewest(newClothes);
       })
       .catch(() => {
@@ -56,6 +58,7 @@ const Dashboard = () => {
 
     fetchNeedsSomeLovingClothes(user_id, searchText)
       .then((lovingClothes) => {
+        console.log(lovingClothes, "loving clothes");
         setNeedsSomeLoving(lovingClothes);
       })
       .catch(() => {
@@ -64,6 +67,7 @@ const Dashboard = () => {
 
     fetchAllAccessories(user_id, searchText)
       .then((accessories) => {
+        console.log(accessories, "accessories");
         setAccessories(accessories);
       })
       .catch(() => {
@@ -75,6 +79,7 @@ const Dashboard = () => {
 
     fetchNewlyAddedClothes(user_id, searchText)
       .then((newlyAdded) => {
+        console.log(newlyAdded, "newly added");
         setNewlyAdded(newlyAdded);
       })
       .catch(() => {
@@ -98,7 +103,7 @@ const Dashboard = () => {
     );
   }
 
-  const handleItemClick = (item) => {
+  const handleItemClick = () => {
     router.push("/clothes/clothes_item");
   };
 
