@@ -107,7 +107,7 @@ const Dashboard = () => {
       <Header onSearch={fetchData} />
       <ScrollView contentContainerStyle={styles.scrollView}>
         <ClothesContainer
-          title="Favourite Clothes"
+          title="Favourite Clothes..."
           items={mostPopular}
           onItemClick={handleItemClick}
         />
