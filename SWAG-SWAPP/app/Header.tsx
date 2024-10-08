@@ -1,21 +1,11 @@
 import React, { useState } from "react";
-import {
-  View,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Alert,
-} from "react-native";
+import { View, TextInput, Pressable, StyleSheet, Alert } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 
 export const Header = ({ onSearch }) => {
   const [searchText, setSearchText] = useState("");
   const router = useRouter();
-
-  const handleSearch = () => {
-    onSearch(searchText);
-  };
 
   const handleLogin = () => {
     Alert.alert("Success!", "Login Here.");
@@ -27,29 +17,34 @@ export const Header = ({ onSearch }) => {
     router.push("/Dashboard");
   };
 
+  const handleSearch = () => {
+    if (onSearch) {
+      onSearch(searchText);
+    }
+  };
+
   return (
     <View style={styles.header}>
-      <TouchableOpacity style={styles.iconButton} onPress={handleHome}>
+      <Pressable style={styles.iconButton} onPress={handleHome}>
         <Icon name="home" size={30} color="#4B4B4B" />
-      </TouchableOpacity>
+      </Pressable>
+
+      {/* Search bar */}
       <TextInput
         placeholder="Search a keyword here"
         style={styles.searchBar}
         value={searchText}
         onChangeText={setSearchText}
+        placeholderTextColor="#A0A0A0"
       />
-      <TouchableOpacity onPress={handleSearch}>
-        <Icon
-          name="search"
-          size={40}
-          style={styles.searchBar}
-          placeholderTextColor="#A0A0A0"
-        />
-      </TouchableOpacity>
+      <Pressable onPress={handleSearch} style={styles.iconButton}>
+        <Icon name="search" size={30} color="#4B4B4B" />
+      </Pressable>
 
-      <TouchableOpacity style={styles.iconButton} onPress={handleLogin}>
+      {/* Profile/Login button */}
+      <Pressable style={styles.iconButton} onPress={handleLogin}>
         <Icon name="person" size={30} color="#4B4B4B" />
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };
@@ -87,6 +82,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
-    elevation: 2,
+    elevation: 2, // Elevation for shadow on Android
   },
 });

@@ -23,6 +23,7 @@ const clothes_item = () => {
 
   useEffect(() => {
     axios
+
       .get(
         `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/35`
       )

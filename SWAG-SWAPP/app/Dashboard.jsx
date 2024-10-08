@@ -3,9 +3,8 @@ import {
   View,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
+  Pressable,
   Text,
-  Alert,
   ActivityIndicator,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -15,8 +14,9 @@ import { ClothesContainer } from "./ClothesContainer";
 import { fetchAllAccessories } from "../Helpers/fetchAllAccessories";
 import {
   fetchMostPopularClothes,
-  fetchNewestClothes,
+  fetchRecentlyWornClothes,
   fetchNeedsSomeLovingClothes,
+  fetchNewlyAddedClothes,
 } from "../Helpers/fetchSortedClothes";
 import { ClothesContext } from "./_layout";
 import { useRouter } from "expo-router";
@@ -24,33 +24,34 @@ import { useRouter } from "expo-router";
 const Dashboard = () => {
   const user_id = 3;
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState("");
+  const [isError, setIsError] = useState(false);
   const [accessories, setAccessories] = useState([]);
   const [mostPopular, setMostPopular] = useState([]);
   const [newest, setNewest] = useState([]);
   const [needsSomeLoving, setNeedsSomeLoving] = useState([]);
+  const [newlyAdded, setNewlyAdded] = useState([]);
   const [clothesItems, setClothesItems] = useContext(ClothesContext);
   const router = useRouter();
 
   const fetchData = (searchText = "") => {
     setClothesItems([{ _tags_map: [] }]);
     setIsLoading(true);
-    setIsError("");
+    setIsError(false);
 
     fetchMostPopularClothes(user_id, searchText)
       .then((popular) => {
         setMostPopular(popular);
       })
       .catch(() => {
-        setIsError("Failed to load popular clothes.");
+        setIsError("Failed to load your popular clothes.");
       });
 
-    fetchNewestClothes(user_id, searchText)
+    fetchRecentlyWornClothes(user_id, searchText)
       .then((newClothes) => {
         setNewest(newClothes);
       })
       .catch(() => {
-        setIsError("Failed to load newest clothes.");
+        setIsError("Failed to load your recently worn clothes.");
       });
 
     fetchNeedsSomeLovingClothes(user_id, searchText)
@@ -62,14 +63,22 @@ const Dashboard = () => {
       });
 
     fetchAllAccessories(user_id, searchText)
-      .then((data) => {
-        setAccessories(data);
+      .then((accessories) => {
+        setAccessories(accessories);
       })
       .catch(() => {
-        setIsError("Failed to load accessories.");
+        setIsError("Failed to load your accessories.");
       })
       .finally(() => {
         setIsLoading(false);
+      });
+
+    fetchNewlyAddedClothes(user_id, searchText)
+      .then((newlyAdded) => {
+        setNewlyAdded(newlyAdded);
+      })
+      .catch(() => {
+        setIsError("Failed to load your newly added clothes.");
       });
   };
 
@@ -89,42 +98,46 @@ const Dashboard = () => {
     );
   }
 
-  const handleItemClick = () => {
-    Alert.alert("Success!", "Welcome To Single Page.");
+  const handleItemClick = (item) => {
     router.push("/clothes/clothes_item");
   };
 
   return (
     <View style={styles.container}>
-      <Header />
+      <Header onSearch={fetchData} />
       <ScrollView contentContainerStyle={styles.scrollView}>
         <ClothesContainer
-          title="Favourite Clothes"
+          title="Favourite Clothes..."
           items={mostPopular}
           onItemClick={handleItemClick}
         />
         <ClothesContainer
-          title="Most Recent Clothes"
+          title="Recently worn Clothes..."
           items={newest}
           onItemClick={handleItemClick}
         />
         <ClothesContainer
-          title="Accessories"
+          title="Accessories..."
           items={accessories}
           onItemClick={handleItemClick}
         />
         <ClothesContainer
-          title="These need some love"
+          title="Newly added..."
           items={needsSomeLoving}
+          onItemClick={handleItemClick}
+        />
+        <ClothesContainer
+          title="These need some love..."
+          items={newlyAdded}
           onItemClick={handleItemClick}
         />
       </ScrollView>
       <View style={styles.addButtonContainer}>
-        <TouchableOpacity style={styles.addButton}>
+        <Pressable style={styles.addButton}>
           <Link href="/camera/camera">
             <Icon name="add" size={30} color="white" />
           </Link>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );
@@ -165,30 +178,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#e74c3c",
     textAlign: "center",
-  },
-  card: {
-    margin: 10,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 10,
-    backgroundColor: "#ffffff",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 2,
-  },
-  image: {
-    width: 100,
-    height: 100,
-    borderRadius: 10,
-  },
-  title: {
-    marginTop: 10,
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#34495e",
   },
 });
 

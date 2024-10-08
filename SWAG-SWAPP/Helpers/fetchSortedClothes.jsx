@@ -20,6 +20,10 @@ export const fetchNeedsSomeLovingClothes = (user_id, searchText = "") => {
   return fetchSortedClothes("wear_frequency", "asc", user_id, searchText);
 };
 
-export const fetchNewestClothes = (user_id, searchText = "") => {
+export const fetchRecentlyWornClothes = (user_id, searchText = "") => {
   return fetchSortedClothes("last_date_worn", "desc", user_id, searchText);
+};
+
+export const fetchNewlyAddedClothes = (user_id, searchText = "") => {
+  return fetchSortedClothes("created_at", "desc", user_id, searchText);
 };
