@@ -98,10 +98,26 @@ const Dashboard = () => {
     <View style={styles.container}>
       <Header />
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <ClothesContainer title="Favourite Clothes" items={mostPopular} onItemClick={handleItemClick}/>
-        <ClothesContainer title="Most Recent Clothes" items={newest} onItemClick={handleItemClick}/>
-        <ClothesContainer title="Accessories" items={accessories} onItemClick={handleItemClick}/>
-        <ClothesContainer title="These need some love" items={needsSomeLoving} onItemClick={handleItemClick}/>
+        <ClothesContainer
+          title="Favourite Clothes"
+          items={mostPopular}
+          onItemClick={handleItemClick}
+        />
+        <ClothesContainer
+          title="Most Recent Clothes"
+          items={newest}
+          onItemClick={handleItemClick}
+        />
+        <ClothesContainer
+          title="Accessories"
+          items={accessories}
+          onItemClick={handleItemClick}
+        />
+        <ClothesContainer
+          title="These need some love"
+          items={needsSomeLoving}
+          onItemClick={handleItemClick}
+        />
       </ScrollView>
       <View style={styles.addButtonContainer}>
         <TouchableOpacity style={styles.addButton}>
