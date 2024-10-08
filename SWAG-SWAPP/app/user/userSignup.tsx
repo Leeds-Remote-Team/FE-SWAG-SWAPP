@@ -1,41 +1,69 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import {
-  Button,
-  Image,
   Text,
   TextInput,
   View,
   StyleSheet,
   Alert,
+  ActivityIndicator,
 } from "react-native";
-import { useState } from "react";
+import axios from "axios";
 import { Link } from "expo-router";
 import { useRouter } from "expo-router";
+import { UserAccountContext } from "../_layout";
+import CustomButton from "../../components/CustomButton";
 
-export default function userSignup() {
-  const [firstNameText, setFirstNameText] = useState("");
-  const [lastNameText, setLastNameText] = useState("");
+export default function UserSignup() {
   const [userNameText, setUserNameText] = useState("");
   const [passwordText, setPasswordText] = useState("");
+  const [firstNameText, setFirstNameText] = useState("");
+  const [lastNameText, setLastNameText] = useState("");
+  const [userAccount, setUserAccount] = useContext(UserAccountContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(null);
 
   const router = useRouter();
 
   const handleSignup = () => {
     if (!firstNameText || !lastNameText || !userNameText || !passwordText) {
-      Alert.alert("Error", "Fill the blanks first!!");
-      console.log("Error");
+      Alert.alert("Error", "Please fill in all fields.");
       return;
     }
-
-    // Alert.alert("Success!", "You've created your account!");
-    console.log("Success");
-    router.push("/Dashboard");
+    const newUser = {
+      username: userNameText,
+      first_name: firstNameText,
+      last_name: lastNameText,
+      password: passwordText,
+    };
+    setIsLoading(true);
+    axios
+      .post(`https://swagswapp-api.onrender.com/api/users`, newUser)
+      .then((response) => {
+        setUserAccount(newUser);
+        setIsLoading(false);
+        Alert.alert("Success", "Account created successfully!");
+        router.push("/camera/camera");
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setIsError("Failed to create account.");
+        Alert.alert("Error", "Account creation failed.");
+      });
   };
 
-  console.log(firstNameText, lastNameText, userNameText, passwordText);
+  if (isLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#34495E" />
+        <Text style={styles.loadingText}>Creating Account...</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}> Signup </Text>
+      <Text style={styles.title}>Signup</Text>
+
       <TextInput
         style={styles.input}
         placeholder="First Name"
@@ -56,14 +84,15 @@ export default function userSignup() {
       />
       <TextInput
         style={styles.input}
-        placeholder="password"
+        placeholder="Password"
         value={passwordText}
         onChangeText={setPasswordText}
+        secureTextEntry
       />
-      <Button title="Signup" onPress={handleSignup} />
+      <CustomButton title="Signup" onPress={handleSignup} style={undefined} textStyle={undefined} />
+
       <Link style={styles.link} href="/user/userLogin">
-        {" "}
-        Already Have An Account? Log In!{" "}
+        Already Have An Account? Log In!
       </Link>
     </View>
   );
@@ -74,23 +103,39 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     justifyContent: "center",
+    backgroundColor: "#F5F5F5",
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     textAlign: "center",
-    marginBottom: 20,
+    marginBottom: 30,
+    color: "#34495E",
   },
   input: {
-    height: 40,
-    borderColor: "grey",
-    marginBottom: 15,
-    paddingHorizontal: 10,
+    height: 50,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 10,
+    marginBottom: 20,
+    paddingHorizontal: 15,
+    backgroundColor: "#FFFFFF",
   },
   link: {
     marginTop: 15,
     textAlign: "center",
-    color: "blue",
+    color: "#34495E", 
     textDecorationLine: "underline",
+    fontWeight: "bold",
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 16,
+    color: "#34495E",
   },
 });
