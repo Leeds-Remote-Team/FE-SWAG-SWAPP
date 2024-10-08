@@ -13,7 +13,6 @@ export const ClothesContainer = ({ title, items, onItemClick }) => {
   const router = useRouter();
 
   const handleClothes = (item_id) => {
-    console.log(item_id, "from clothesContainer");
     router.push({
       pathname: "/clothes/clothes_item",
       params: { item_id },

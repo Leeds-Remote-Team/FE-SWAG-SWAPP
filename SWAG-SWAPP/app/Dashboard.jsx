@@ -99,7 +99,6 @@ const Dashboard = () => {
   }
 
   const handleItemClick = (item_id) => {
-    console.log(item_id, "this is item_id from dashboard");
     router.push({
       pathname: "/clothes/clothes_item",
       params: item_id,

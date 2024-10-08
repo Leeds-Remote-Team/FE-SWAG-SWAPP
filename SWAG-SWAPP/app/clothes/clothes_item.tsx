@@ -25,14 +25,7 @@ const clothes_item = () => {
 
   const { item_id } = useLocalSearchParams();
 
-  console.log(item_id, "<-- loc");
-
   const router = useRouter();
-  console.log(router, "this is router query");
-
-  // const {item_id} = router.query;
-
-  // console.log(item_id, "this item_id from clothes_item");
 
   useEffect(() => {
     if (item_id) {
@@ -41,7 +34,6 @@ const clothes_item = () => {
           `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
         )
         .then((response) => {
-          console.log("reaching ..then from get");
           setClotheItem(response.data[0]);
           setIsLoading(false);
         })
@@ -76,13 +68,7 @@ const clothes_item = () => {
     );
   }
 
-  const tags = [
-    clotheItem.top_category,
-    clotheItem.category,
-    clotheItem.color,
-    clotheItem.tags.sleeves,
-    clotheItem.tags.style,
-  ];
+  const tags = [clotheItem.top_category, clotheItem.category, clotheItem.color];
 
   const handleWearToday = () => {
     let newWearUpdate = {
