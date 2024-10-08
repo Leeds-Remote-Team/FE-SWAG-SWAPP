@@ -1,5 +1,5 @@
-export const fetchAllAccessories = (user_id, searchText = "accessories") => {
-  const url = `https://swagswapp-api.onrender.com/api/clothes/${user_id}?searchText=${searchText}`;
+export const fetchAllAccessories = (user_id) => {
+  const url = `https://swagswapp-api.onrender.com/api/clothes/${user_id}`;
   return fetch(url)
     .then((response) => {
       if (!response.ok) {
@@ -8,6 +8,6 @@ export const fetchAllAccessories = (user_id, searchText = "accessories") => {
       return response.json();
     })
     .then((data) => {
-      return data;
+      return data.filter((item) => item.top_category === "accessories");
     });
 };
