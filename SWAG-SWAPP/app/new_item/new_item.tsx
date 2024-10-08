@@ -6,6 +6,7 @@ import {
   Button,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { ClothesContext } from "../_layout";
@@ -28,7 +29,7 @@ export default function newItem() {
   const [colorTag, setColorTag] = useState(Color);
   const tags = clothesItems[0]._tags_map;
   const [tag, setTag] = useState(tags);
-  const user_id = 2;
+  const user_id = 3;
   const [clothesData, setClothesData] = useState({});
   const [clothesName, setClothesName] = useState("");
   const router = useRouter();
@@ -66,7 +67,7 @@ export default function newItem() {
   return (
     <View>
       <View style={styles.container}>
-        <Image style={styles.image} source={postImage} />
+        <Image style={styles.image} source={postImage} src={postImage} />
         <TextInput
           style={styles.input}
           placeholder="Enter name of item..."
@@ -109,8 +110,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5f5f5",
   },
   image: {
-    width: "100%",
-    height: 500,
+    width: 365,
+    height: 400,
     borderRadius: 10,
     marginBottom: 20,
   },
@@ -128,16 +129,23 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   tag: {
+    display: "flex",
     backgroundColor: "#3498db",
     paddingVertical: 5,
+    height: 35,
+    width: "auto",
+
+    justifyContent: "center",
     paddingHorizontal: 10,
     borderRadius: 20,
     marginHorizontal: 5,
     marginBottom: 10,
   },
   tagText: {
+    display: "flex",
     color: "#fff",
     fontSize: 14,
+    justifyContent: "center",
   },
   descriptionLabel: {
     fontSize: 18,
@@ -158,9 +166,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   input: {
-    height: 40,
-    borderColor: "grey",
-    marginBottom: 15,
-    paddingHorizontal: 10,
+    height: 50,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 10,
+    marginBottom: 20,
+    paddingHorizontal: 15,
+    backgroundColor: "#FFFFFF",
+    color: "black",
   },
 });
