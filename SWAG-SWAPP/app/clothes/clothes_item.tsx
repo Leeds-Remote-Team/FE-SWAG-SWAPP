@@ -102,7 +102,7 @@ const clothes_item = () => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <Header />
+        <Header onSearch={undefined} />
         <Text style={styles.name}>{clotheItem.name || "Clothes Item Name"}</Text>
         <Image
           style={styles.image}

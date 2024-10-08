@@ -82,7 +82,7 @@ const EditClothesItem = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Header />
+      <Header onSearch={undefined} />
       <Text style={styles.name}>Editing Details</Text>
       <Image
         style={styles.image}
