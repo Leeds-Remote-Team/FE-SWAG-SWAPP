@@ -1,5 +1,13 @@
 import React from "react";
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Image, Alert } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  Pressable,
+  StyleSheet,
+  Image,
+  Alert,
+} from "react-native";
 import { useRouter } from "expo-router";
 
 export const ClothesContainer = ({ title, items, onItemClick }) => {
@@ -15,14 +23,14 @@ export const ClothesContainer = ({ title, items, onItemClick }) => {
       <Text style={styles.title}>{title}</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {items.map((item) => (
-          <TouchableOpacity
+          <Pressable
             key={item.item_id}
             style={styles.card}
-            onPress={handleClothes} 
+            onPress={handleClothes}
           >
             <Image source={{ uri: item.img_url }} style={styles.image} />
             <Text style={styles.itemText}>{item.category}</Text>
-          </TouchableOpacity>
+          </Pressable>
         ))}
       </ScrollView>
     </View>
@@ -39,12 +47,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
-    color: "#4B4B4B", 
+    color: "#4B4B4B",
   },
   card: {
     width: 130,
     height: 160,
-    backgroundColor: "#F5F5F5", 
+    backgroundColor: "#F5F5F5",
     borderRadius: 15,
     marginRight: 15,
     padding: 10,
@@ -54,7 +62,7 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.1,
     shadowRadius: 6,
-    elevation: 3, 
+    elevation: 3,
   },
   image: {
     width: 100,
@@ -65,7 +73,7 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontSize: 14,
-    color: "#34495E", 
+    color: "#34495E",
     fontWeight: "500",
     textAlign: "center",
   },

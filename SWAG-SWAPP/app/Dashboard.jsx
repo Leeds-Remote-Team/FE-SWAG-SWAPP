@@ -5,7 +5,6 @@ import {
   ScrollView,
   Pressable,
   Text,
-  Alert,
   ActivityIndicator,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -69,6 +68,9 @@ const Dashboard = () => {
       })
       .catch(() => {
         setIsError("Failed to load your accessories.");
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
 
     fetchNewlyAddedClothes(user_id, searchText)
@@ -77,9 +79,6 @@ const Dashboard = () => {
       })
       .catch(() => {
         setIsError("Failed to load your newly added clothes.");
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
   };
 
