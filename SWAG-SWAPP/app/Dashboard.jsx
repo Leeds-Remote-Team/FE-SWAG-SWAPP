@@ -1,5 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
-import { View, StyleSheet, ScrollView, TouchableOpacity, Text, Alert, ActivityIndicator } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Text,
+  Alert,
+  ActivityIndicator,
+} from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Header } from "./Header";
 import { Link } from "expo-router";
@@ -7,8 +15,9 @@ import { ClothesContainer } from "./ClothesContainer";
 import { fetchAllAccessories } from "../Helpers/fetchAllAccessories";
 import {
   fetchMostPopularClothes,
-  fetchNewestClothes,
+  fetchRecentlyWornClothes,
   fetchNeedsSomeLovingClothes,
+  fetchNewlyAddedClothes,
 } from "../Helpers/fetchSortedClothes";
 import { ClothesContext } from "./_layout";
 import { useRouter } from "expo-router";
@@ -16,33 +25,34 @@ import { useRouter } from "expo-router";
 const Dashboard = () => {
   const user_id = 3;
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState("");
+  const [isError, setIsError] = useState(false);
   const [accessories, setAccessories] = useState([]);
   const [mostPopular, setMostPopular] = useState([]);
   const [newest, setNewest] = useState([]);
   const [needsSomeLoving, setNeedsSomeLoving] = useState([]);
+  const [newlyAdded, setNewlyAdded] = useState([]);
   const [clothesItems, setClothesItems] = useContext(ClothesContext);
   const router = useRouter();
 
   const fetchData = (searchText = "") => {
     setClothesItems([{ _tags_map: [] }]);
     setIsLoading(true);
-    setIsError("");
+    setIsError(false);
 
     fetchMostPopularClothes(user_id, searchText)
       .then((popular) => {
         setMostPopular(popular);
       })
       .catch(() => {
-        setIsError("Failed to load popular clothes.");
+        setIsError("Failed to load your popular clothes.");
       });
 
-    fetchNewestClothes(user_id, searchText)
+    fetchRecentlyWornClothes(user_id, searchText)
       .then((newClothes) => {
         setNewest(newClothes);
       })
       .catch(() => {
-        setIsError("Failed to load newest clothes.");
+        setIsError("Failed to load your recently worn clothes.");
       });
 
     fetchNeedsSomeLovingClothes(user_id, searchText)
@@ -54,11 +64,19 @@ const Dashboard = () => {
       });
 
     fetchAllAccessories(user_id, searchText)
-      .then((data) => {
-        setAccessories(data);
+      .then((accessories) => {
+        setAccessories(accessories);
       })
       .catch(() => {
-        setIsError("Failed to load accessories.");
+        setIsError("Failed to load your accessories.");
+      });
+
+    fetchNewlyAddedClothes(user_id, searchText)
+      .then((newlyAdded) => {
+        setNewlyAdded(newlyAdded);
+      })
+      .catch(() => {
+        setIsError("Failed to load your newly added clothes.");
       })
       .finally(() => {
         setIsLoading(false);
@@ -82,7 +100,6 @@ const Dashboard = () => {
   }
 
   const handleItemClick = (item) => {
-    Alert.alert("Success!", `Clicked on ${item.name}`);
     router.push("/clothes/clothes_item");
   };
 
@@ -90,10 +107,31 @@ const Dashboard = () => {
     <View style={styles.container}>
       <Header onSearch={fetchData} />
       <ScrollView contentContainerStyle={styles.scrollView}>
-        <ClothesContainer title="Favourite Clothes" items={mostPopular} onItemClick={handleItemClick} />
-        <ClothesContainer title="Most Recent Clothes" items={newest} onItemClick={handleItemClick} />
-        <ClothesContainer title="Accessories" items={accessories} onItemClick={handleItemClick} />
-        <ClothesContainer title="These need some love" items={needsSomeLoving} onItemClick={handleItemClick} />
+        <ClothesContainer
+          title="Favourite Clothes"
+          items={mostPopular}
+          onItemClick={handleItemClick}
+        />
+        <ClothesContainer
+          title="Recently worn Clothes..."
+          items={newest}
+          onItemClick={handleItemClick}
+        />
+        <ClothesContainer
+          title="Accessories..."
+          items={accessories}
+          onItemClick={handleItemClick}
+        />
+        <ClothesContainer
+          title="Newly added..."
+          items={needsSomeLoving}
+          onItemClick={handleItemClick}
+        />
+        <ClothesContainer
+          title="These need some love..."
+          items={newlyAdded}
+          onItemClick={handleItemClick}
+        />
       </ScrollView>
       <View style={styles.addButtonContainer}>
         <TouchableOpacity style={styles.addButton}>
