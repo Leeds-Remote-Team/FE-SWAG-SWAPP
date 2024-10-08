@@ -38,6 +38,8 @@ export default function newItem() {
 
   useEffect(() => {
     tag.name = clothesName;
+    tag.wear_frequency = 0;
+    tag.last_worn = "00/00/0000";
     setClothesData({
       user_id: user_id,
       img_url: postImage,
@@ -98,8 +100,13 @@ export default function newItem() {
           gift its old as hell and has no resale value... love it thought!
         </Text>
       </View>
-      <TouchableOpacity onPress={handlePress} disabled={posting}>
-        <Icon name="add" size={40} />
+      <TouchableOpacity
+        onPress={handlePress}
+        style={styles.addButton}
+        disabled={posting}
+      >
+        {/* <Icon name="shirt-outline" size={40} /> */}
+        <Text style={styles.addButtonText}> Add to Wardrobe </Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={handleRetake} disabled={posting}>
         <Icon name="reload-circle" size={40} />
@@ -183,5 +190,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: "#FFFFFF",
     color: "black",
+  },
+  addButton: {
+    display: "flex",
+    backgroundColor: "#3498db",
+    paddingVertical: 5,
+    height: 35,
+    width: "auto",
+
+    justifyContent: "center",
+    paddingHorizontal: 10,
+    borderRadius: 20,
+    marginHorizontal: 5,
+    marginBottom: 10,
+  },
+  addButtonText: {
+    display: "flex",
+    color: "black",
+    fontSize: 14,
+    justifyContent: "center",
   },
 });
