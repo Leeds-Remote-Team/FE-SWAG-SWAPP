@@ -40,7 +40,6 @@ const Dashboard = () => {
 
     fetchMostPopularClothes(user_id, searchText)
       .then((popular) => {
-        console.log(popular, "popular clothes");
         setMostPopular(popular);
       })
       .catch(() => {
@@ -49,7 +48,6 @@ const Dashboard = () => {
 
     fetchRecentlyWornClothes(user_id, searchText)
       .then((newClothes) => {
-        console.log(newClothes, "new clothes");
         setNewest(newClothes);
       })
       .catch(() => {
@@ -65,15 +63,11 @@ const Dashboard = () => {
       });
 
     fetchAllAccessories(user_id, searchText)
-      .then((accessories) => {
-        console.log(accessories, "accessories");
-        setAccessories(accessories);
+      .then((data) => {
+        setAccessories(data);
       })
       .catch(() => {
         setIsError("Failed to load your accessories.");
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
 
     fetchNewlyAddedClothes(user_id, searchText)
@@ -82,7 +76,11 @@ const Dashboard = () => {
         setNewlyAdded(newlyAdded);
       })
       .catch(() => {
+        console.log("here");
         setIsError("Failed to load your newly added clothes.");
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -127,12 +125,12 @@ const Dashboard = () => {
         />
         <ClothesContainer
           title="Newly added..."
-          items={needsSomeLoving}
+          items={newlyAdded}
           onItemClick={handleItemClick}
         />
         <ClothesContainer
           title="These need some love..."
-          items={newlyAdded}
+          items={needsSomeLoving}
           onItemClick={handleItemClick}
         />
       </ScrollView>
