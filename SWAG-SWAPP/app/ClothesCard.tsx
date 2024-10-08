@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Image,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import { Image, View, Text, StyleSheet, Pressable, Alert } from "react-native";
 import { useRouter } from "expo-router";
 
 export const ClothesCard = ({ title, image }) => {
@@ -19,10 +12,10 @@ export const ClothesCard = ({ title, image }) => {
 
   return (
     <View style={styles.section}>
-      <TouchableOpacity onPress={handleClothes}>
+      <Pressable onPress={handleClothes}>
         <Image source={image} style={styles.cardPlaceholder} />
         <Text style={styles.title}>{title}</Text>
-      </TouchableOpacity>
+      </Pressable>
     </View>
   );
 };
