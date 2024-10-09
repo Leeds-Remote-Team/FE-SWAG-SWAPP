@@ -10,7 +10,10 @@ import {
 } from "react-native";
 import { Header } from "../Header";
 import axios from "axios";
-import { useRouter } from "expo-router";
+import {
+  useLocalSearchParams,
+  useRouter,
+} from "expo-router";
 import { UserAccountContext } from "../_layout";
 
 const clothes_item = () => {
@@ -19,23 +22,26 @@ const clothes_item = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(null);
 
+  const { item_id } = useLocalSearchParams();
+
   const router = useRouter();
 
   useEffect(() => {
-    axios
-
-      .get(
-        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/35`
-      )
-      .then((response) => {
-        setClotheItem(response.data[0]);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setIsError(`Fail to load item. Error: ${err}`);
-        setIsLoading(false);
-      });
-  }, [userAccount]);
+    if (item_id) {
+      axios
+        .get(
+          `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
+        )
+        .then((response) => {
+          setClotheItem(response.data[0]);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          setIsError(`Fail to load item. Error: ${err}`);
+          setIsLoading(false);
+        });
+    }
+  }, [userAccount, item_id]);
 
   if (isLoading) {
     return (
@@ -61,13 +67,7 @@ const clothes_item = () => {
     );
   }
 
-  const tags = [
-    clotheItem.top_category,
-    clotheItem.category,
-    clotheItem.color,
-    clotheItem.tags.sleeves,
-    clotheItem.tags.style,
-  ];
+  const tags = [clotheItem.top_category, clotheItem.category, clotheItem.color];
 
   const handleWearToday = () => {
     let newWearUpdate = {
@@ -76,7 +76,7 @@ const clothes_item = () => {
     };
     axios
       .patch(
-        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/35`,
+        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`,
         newWearUpdate
       )
       .then(() => {
@@ -105,14 +105,14 @@ const clothes_item = () => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        {/* <Header onSearch={undefined} /> */}
+        <Header onSearch={undefined} />
         <Text style={styles.name}>
           {clotheItem.name || "Clothes Item Name"}
         </Text>
         <Image
           style={styles.image}
           source={{
-            uri: "https://cdn.grube.de/2021/06/14/80-487-01_1_j21_700.jpg",
+            uri: clotheItem.img_url,
           }}
         />
         <View style={styles.tagContainer}>

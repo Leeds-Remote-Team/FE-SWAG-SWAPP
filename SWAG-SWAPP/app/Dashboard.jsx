@@ -100,8 +100,12 @@ const Dashboard = () => {
     );
   }
 
-  const handleItemClick = () => {
-    router.push("/clothes/clothes_item");
+
+  const handleItemClick = (item_id) => {
+    router.push({
+      pathname: "/clothes/clothes_item",
+      params: item_id,
+    });
   };
 
   return (

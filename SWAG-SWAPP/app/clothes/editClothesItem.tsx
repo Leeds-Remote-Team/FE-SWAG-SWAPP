@@ -10,7 +10,7 @@ import {
   Alert,
 } from "react-native";
 import axios from "axios";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { Header } from "../Header";
 import { UserAccountContext } from "../_layout";
 
@@ -24,26 +24,29 @@ const EditClothesItem = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState("");
 
+  const { item_id } = useLocalSearchParams();
   const router = useRouter();
 
   useEffect(() => {
-    axios
-      .get(
-        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/35`
-      )
-      .then((response) => {
-        const item = response.data[0];
-        setClotheItem(item);
-        setTopCategory(item.top_category);
-        setCategory(item.category);
-        setColor(item.color);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setIsError(`Failed to load item. Error: ${err}`);
-        setIsLoading(false);
-      });
-  }, [userAccount]);
+    if (item_id) {
+      axios
+        .get(
+          `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
+        )
+        .then((response) => {
+          const item = response.data[0];
+          setClotheItem(item);
+          setTopCategory(item.top_category);
+          setCategory(item.category);
+          setColor(item.color);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          setIsError(`Failed to load item. Error: ${err}`);
+          setIsLoading(false);
+        });
+    }
+  }, [userAccount, item_id]);
 
   const handleSubmitEdit = () => {
     let newDetails = {
@@ -54,16 +57,15 @@ const EditClothesItem = () => {
 
     axios
       .patch(
-        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/35`,
+        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`,
         newDetails
       )
       .then(() => {
         Alert.alert("Success!", "Clothes updated successfully.");
-        router.push("/clothes/clothes_item");
-        // router.push({
-        //   pathname: "/clothes/clothes_item",
-        //   params: { item_id: clotheItem.item_id },
-        // });
+        router.push({
+          pathname: "/clothes/clothes_item",
+          params: { item_id: clotheItem.item_id },
+        });
       })
       .catch((err) => {
         Alert.alert("Error", `Failed to update clothes. Error: ${err}`);
@@ -88,12 +90,12 @@ const EditClothesItem = () => {
 
   return (
     <ScrollView style={styles.container}>
-      {/* <Header onSearch={undefined} /> */}
+      <Header onSearch={undefined} />
       <Text style={styles.name}>Editing Details</Text>
       <Image
         style={styles.image}
         source={{
-          uri: "https://cdn.grube.de/2021/06/14/80-487-01_1_j21_700.jpg",
+          uri: clotheItem.img_url,
         }}
       />
       <Text style={styles.descriptionLabel}>Description:</Text>
