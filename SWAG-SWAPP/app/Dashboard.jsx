@@ -20,7 +20,7 @@ import { useRouter } from "expo-router";
 import { Footer } from "../components/Footer";
 
 
-const Dashboard = () => {
+export const Dashboard = () => {
   const user_id = 3;
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -47,7 +47,11 @@ const Dashboard = () => {
 
     fetchRecentlyWornClothes(user_id, searchText)
       .then((newClothes) => {
-        setNewest(newClothes);
+        console.log(newClothes);
+        const wornClothes = newClothes.filter(
+          (item) => item.tags.wear_frequency > 0
+        );
+        setNewest(wornClothes);
       })
       .catch(() => {
         setIsError("Failed to load your recently worn clothes.");
@@ -99,7 +103,6 @@ const Dashboard = () => {
       </View>
     );
   }
-
 
   const handleItemClick = (item_id) => {
     router.push({
