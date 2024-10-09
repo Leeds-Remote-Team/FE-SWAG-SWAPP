@@ -39,7 +39,7 @@ export default function newItem() {
   useEffect(() => {
     tag.name = clothesName;
     tag.wear_frequency = 0;
-    tag.last_worn = "00/00/0000";
+    tag.date_last_worn = "00/00/0000";
     setClothesData({
       user_id: user_id,
       img_url: postImage,
@@ -74,45 +74,46 @@ export default function newItem() {
 
   return (
     <View>
-      <View style={styles.container}>
-        <Image style={styles.image} source={postImage} src={postImage} />
-        <TextInput
-          style={styles.input}
-          placeholder="Enter name of item..."
-          value={clothesName}
-          onChangeText={setClothesName}
-        />
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <View style={styles.container}>
+          <Image style={styles.image} source={postImage} src={postImage} />
+          <TextInput
+            style={styles.input}
+            placeholder="Enter name of item..."
+            value={clothesName}
+            onChangeText={setClothesName}
+          />
 
-        <View style={styles.tagContainer}>
-          {tagKeys.map((tag, index) => (
-            <View key={index} style={styles.tag}>
-              <Text style={styles.tagText}>
-                {tag}: {tagValues[0][index]}
-              </Text>
-            </View>
-          ))}
+          <View style={styles.tagContainer}>
+            {tagKeys.map((tag, index) => (
+              <View key={index} style={styles.tag}>
+                <Text style={styles.tagText}>
+                  {tag}: {tagValues[0][index]}
+                </Text>
+              </View>
+            ))}
+          </View>
+
+          <Text style={styles.descriptionLabel}>Description:</Text>
+          <Text style={styles.descriptionText}>
+            This is an example of a description. I think the user should be able
+            to edit this manually no? Like this is my jumper I got, i got it as
+            a gift its old as hell and has no resale value... love it thought!
+          </Text>
         </View>
-
-        <Text style={styles.descriptionLabel}>Description:</Text>
-        <Text style={styles.descriptionText}>
-          This is an example of a description. I think the user should be able
-          to edit this manually no? Like this is my jumper I got, i got it as a
-          gift its old as hell and has no resale value... love it thought!
-        </Text>
-      </View>
-      <View style={styles.addButtonContainer}>
-        <TouchableOpacity
-          onPress={handlePress}
-          style={styles.addItemButton}
-          disabled={posting}
-        >
-          {/* <Icon name="shirt-outline" size={40} /> */}
-          <Text style={styles.addButtonText}> Add to Wardrobe </Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleRetake} disabled={posting}>
-          <Icon name="reload-circle" size={40} />
-        </TouchableOpacity>
-      </View>
+        <View style={styles.addButtonContainer}>
+          <TouchableOpacity
+            onPress={handlePress}
+            style={styles.addItemButton}
+            disabled={posting}
+          >
+            <Text style={styles.addButtonText}> Add to Wardrobe </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleRetake} disabled={posting}>
+            <Icon name="reload-circle" size={40} />
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -193,6 +194,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     color: "black",
   },
+  scrollView: {
+    paddingBottom: 100,
+  },
   addButton: {
     display: "flex",
     backgroundColor: "#3498db",
@@ -214,20 +218,15 @@ const styles = StyleSheet.create({
   },
   addButtonContainer: {
     position: "absolute",
-    bottom: 30,
-    right: 20,
+    bottom: 0,
+    right: 5,
+    left: 5,
     justifyContent: "center",
     alignItems: "center",
   },
   addItemButton: {
-    backgroundColor: "#3498db",
+    backgroundColor: "#2f3640",
     padding: 15,
     borderRadius: 50,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 5,
-    color: "white",
   },
 });
