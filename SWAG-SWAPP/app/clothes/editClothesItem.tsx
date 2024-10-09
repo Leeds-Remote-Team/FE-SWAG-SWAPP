@@ -5,7 +5,7 @@ import {
   Image,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
+  Pressable,
   ScrollView,
   Alert,
 } from "react-native";
@@ -150,13 +150,13 @@ const EditClothesItem = () => {
       <Text style={styles.descriptionText}>
         Wear Frequency: {clotheItem.tags.wear_frequency}
       </Text>
-      <TouchableOpacity style={styles.submitButton} onPress={handleSubmitEdit}>
+      <Pressable style={styles.submitButton} onPress={handleSubmitEdit}>
         <Text style={styles.buttonText}>Submit Changes</Text>
-      </TouchableOpacity>
+      </Pressable>
 
-      <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
+      <Pressable style={styles.deleteButton} onPress={handleDelete}>
         <Text style={styles.buttonText}>Delete Item</Text>
-      </TouchableOpacity>
+      </Pressable>
     </ScrollView>
   );
 };

@@ -4,16 +4,13 @@ import {
   Text,
   Image,
   StyleSheet,
-  TouchableOpacity,
+  Pressable,
   Alert,
   ScrollView,
 } from "react-native";
 import { Header } from "../Header";
 import axios from "axios";
-import {
-  useLocalSearchParams,
-  useRouter,
-} from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { UserAccountContext } from "../_layout";
 
 const clothes_item = () => {
@@ -107,7 +104,7 @@ const clothes_item = () => {
       <ScrollView>
         <Header onSearch={undefined} />
         <Text style={styles.name}>
-        {clotheItem.tags.name ? clotheItem.tags.name : clotheItem.category}
+          {clotheItem.tags.name ? clotheItem.tags.name : clotheItem.category}
         </Text>
         <Image
           style={styles.image}
@@ -132,15 +129,12 @@ const clothes_item = () => {
         <Text style={styles.descriptionText}>
           Wear Frequency: {clotheItem.tags.wear_frequency}
         </Text>
-        <TouchableOpacity
-          style={styles.wearTodayButton}
-          onPress={handleWearToday}
-        >
+        <Pressable style={styles.wearTodayButton} onPress={handleWearToday}>
           <Text style={styles.buttonText}>Wear Today</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.editButton} onPress={handleEdit}>
+        </Pressable>
+        <Pressable style={styles.editButton} onPress={handleEdit}>
           <Text style={styles.buttonText}>Edit Details</Text>
-        </TouchableOpacity>
+        </Pressable>
       </ScrollView>
     </View>
   );
