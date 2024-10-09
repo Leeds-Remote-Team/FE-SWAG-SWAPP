@@ -68,15 +68,26 @@ const clothes_item = () => {
     );
   }
 
+  // let tags = clotheItem.tags;
+  // for (let item in tags) {
+  //   if (item === "") {
+  //     delete tags[item];
+  //   }
+  // }
+
+  // tags = [Object.values(tags)];
+
   let tags = clotheItem.tags;
-  for (let item in tags) {
-    if (item === "") {
-      delete tags[item];
+
+  for (let key in tags) {
+    if (tags[key] === "") {
+      delete tags[key];
     }
   }
 
-  tags = [Object.values(tags)];
-
+  let displayTags = Object.keys(tags)
+    .filter((key) => key !== "wear_frequency" && key !== "last_date_worn")
+    .map((key) => tags[key]);
 
   const handleWearToday = () => {
     let newWearUpdate = {
@@ -131,9 +142,12 @@ const clothes_item = () => {
             }}
           />
           <View style={styles.tagContainer}>
-            {tags[0].map((tag, index) => (
+            {displayTags.map((tags, index) => (
               <View key={index} style={styles.tag}>
-                <Text style={styles.tagText}>{tag}</Text>
+                <Text style={styles.tagText}>
+                  {/* replace the tag below with displayTags */}
+                  {tags}
+                </Text>
               </View>
             ))}
           </View>
