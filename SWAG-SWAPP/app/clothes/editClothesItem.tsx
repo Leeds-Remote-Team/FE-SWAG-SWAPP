@@ -5,7 +5,7 @@ import {
   Image,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
+  Pressable,
   ScrollView,
   Alert,
 } from "react-native";
@@ -69,6 +69,20 @@ const EditClothesItem = () => {
       })
       .catch((err) => {
         Alert.alert("Error", `Failed to update clothes. Error: ${err}`);
+      });
+  };
+
+  const handleDelete = () => {
+    axios
+      .delete(
+        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
+      )
+      .then(() => {
+        Alert.alert("Success!", "Item deleted successfully.");
+        router.push("/Dashboard");
+      })
+      .catch((err) => {
+        Alert.alert("Error", `Failed to delete item. Error: ${err}`);
       });
   };
 
@@ -136,9 +150,13 @@ const EditClothesItem = () => {
       <Text style={styles.descriptionText}>
         Wear Frequency: {clotheItem.tags.wear_frequency}
       </Text>
-      <TouchableOpacity style={styles.submitButton} onPress={handleSubmitEdit}>
+      <Pressable style={styles.submitButton} onPress={handleSubmitEdit}>
         <Text style={styles.buttonText}>Submit Changes</Text>
-      </TouchableOpacity>
+      </Pressable>
+
+      <Pressable style={styles.deleteButton} onPress={handleDelete}>
+        <Text style={styles.buttonText}>Delete Item</Text>
+      </Pressable>
     </ScrollView>
   );
 };
@@ -224,6 +242,14 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 20,
     color: "#e74c3c",
+  },
+
+  deleteButton: {
+    backgroundColor: "#FF0000",
+    padding: 15,
+    borderRadius: 10,
+    marginTop: 20,
+    alignItems: "center",
   },
 });
 

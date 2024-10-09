@@ -4,7 +4,7 @@ import {
   Image,
   StyleSheet,
   Button,
-  TouchableOpacity,
+  Pressable,
   TextInput,
   ScrollView,
 } from "react-native";
@@ -117,6 +117,7 @@ export default function newItem() {
           </TouchableOpacity>
         </View>
       </ScrollView>
+
     </View>
   );
 }
