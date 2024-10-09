@@ -35,14 +35,20 @@ export default function newItem() {
   const [clothesName, setClothesName] = useState("");
   const [description, setDescription] = useState("");
   const router = useRouter();
+  if (colorTag === undefined) {
+    setColorTag("None");
+  }
 
   console.log(clothesItems);
 
   useEffect(() => {
     tag.name = clothesName;
     tag.wear_frequency = 0;
-    tag.date_last_worn = "00/00/0000";
+    tag.date_last_worn = "New Item";
     tag.description = description;
+    console.log(colorTag);
+
+    console.log(colorTag, Color);
     setClothesData({
       user_id: user_id,
       img_url: postImage,
@@ -88,15 +94,23 @@ export default function newItem() {
               onChangeText={setClothesName}
             />
 
-            <View style={styles.tagContainer}>
-              {tagKeys.map((tag, index) => (
-                <View key={index} style={styles.tag}>
-                  <Text style={styles.tagText}>
-                    {tag}: {tagValues[0][index]}
-                  </Text>
-                </View>
-              ))}
-            </View>
+          <View style={styles.tagContainer}>
+            {tagKeys.map((tag, index) => (
+              <View key={index} style={styles.tag}>
+                <Text style={styles.tagText}>
+                  {tag === "date_last_worn" || tag === "wear_frequency"
+                    ? ""
+                    : tag}{" "}
+                  {tag === "wear_frequency"
+                    ? "Never Worn"
+                    : tagValues[0][index] === "New Item"
+                    ? tagValues[0][index]
+                    : ": " + tagValues[0][index]}
+                </Text>
+              </View>
+            ))}
+          </View>
+
 
             <Text style={styles.descriptionLabel}>Description:</Text>
             <TextInput
