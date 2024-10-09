@@ -1,5 +1,6 @@
 import { CameraView, CameraType, useCameraPermissions } from "expo-camera";
 import { useContext, useEffect, useRef, useState } from "react";
+import Icon from "react-native-vector-icons/Ionicons";
 import {
   AppRegistry,
   Button,
@@ -20,6 +21,7 @@ const supabase = createClient(
 import { ClothesContext } from "../_layout";
 
 export default function cameraFunc() {
+  console.log("In camera");
   const cameraRef = useRef(null);
   const [facing, setFacing] = useState<CameraType>("back");
   const [permission, requestPermission] = useCameraPermissions();
@@ -121,7 +123,9 @@ export default function cameraFunc() {
             <Text style={styles.text}>Flip Camera</Text>
           </TouchableOpacity>
         </View>
-        <Button title="take photo" onPress={hanldeTakePhoto}></Button>
+        <TouchableOpacity style={styles.cameraButton} onPress={hanldeTakePhoto}>
+          <Icon name="camera" size={65} color="white" />
+        </TouchableOpacity>
       </CameraView>
     </View>
   );
@@ -154,5 +158,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     color: "white",
+  },
+  cameraButton: {
+    flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
+    bottom: -200,
   },
 });

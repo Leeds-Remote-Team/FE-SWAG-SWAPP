@@ -6,6 +6,7 @@ import {
   Button,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { ClothesContext } from "../_layout";
@@ -28,7 +29,7 @@ export default function newItem() {
   const [colorTag, setColorTag] = useState(Color);
   const tags = clothesItems[0]._tags_map;
   const [tag, setTag] = useState(tags);
-  const user_id = 2;
+  const user_id = 3;
   const [clothesData, setClothesData] = useState({});
   const [clothesName, setClothesName] = useState("");
   const router = useRouter();
@@ -37,6 +38,8 @@ export default function newItem() {
 
   useEffect(() => {
     tag.name = clothesName;
+    tag.wear_frequency = 0;
+    tag.last_worn = "00/00/0000";
     setClothesData({
       user_id: user_id,
       img_url: postImage,
@@ -59,6 +62,12 @@ export default function newItem() {
 
     router.push("/Dashboard");
   };
+
+  const handleRetake = () => {
+    console.log("In handler");
+    setClothesItems([{ _tags_map: [] }]);
+    router.push("/camera/camera");
+  };
   const tagKeys = Object.keys({ ...tag });
   let tagValues = [];
   tagValues = [Object.values(tag)];
@@ -66,7 +75,7 @@ export default function newItem() {
   return (
     <View>
       <View style={styles.container}>
-        <Image style={styles.image} source={postImage} />
+        <Image style={styles.image} source={postImage} src={postImage} />
         <TextInput
           style={styles.input}
           placeholder="Enter name of item..."
@@ -91,9 +100,19 @@ export default function newItem() {
           gift its old as hell and has no resale value... love it thought!
         </Text>
       </View>
-      <TouchableOpacity onPress={handlePress} disabled={posting}>
-        <Icon name="add" size={40} />
-      </TouchableOpacity>
+      <View style={styles.addButtonContainer}>
+        <TouchableOpacity
+          onPress={handlePress}
+          style={styles.addItemButton}
+          disabled={posting}
+        >
+          {/* <Icon name="shirt-outline" size={40} /> */}
+          <Text style={styles.addButtonText}> Add to Wardrobe </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleRetake} disabled={posting}>
+          <Icon name="reload-circle" size={40} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -109,8 +128,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5f5f5",
   },
   image: {
-    width: "100%",
-    height: 500,
+    width: 365,
+    height: 400,
     borderRadius: 10,
     marginBottom: 20,
   },
@@ -128,16 +147,23 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   tag: {
+    display: "flex",
     backgroundColor: "#3498db",
     paddingVertical: 5,
+    height: 35,
+    width: "auto",
+
+    justifyContent: "center",
     paddingHorizontal: 10,
     borderRadius: 20,
     marginHorizontal: 5,
     marginBottom: 10,
   },
   tagText: {
+    display: "flex",
     color: "#fff",
     fontSize: 14,
+    justifyContent: "center",
   },
   descriptionLabel: {
     fontSize: 18,
@@ -158,9 +184,50 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   input: {
-    height: 40,
-    borderColor: "grey",
-    marginBottom: 15,
+    height: 50,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 10,
+    marginBottom: 20,
+    paddingHorizontal: 15,
+    backgroundColor: "#FFFFFF",
+    color: "black",
+  },
+  addButton: {
+    display: "flex",
+    backgroundColor: "#3498db",
+    paddingVertical: 5,
+    height: 35,
+    width: "auto",
+
+    justifyContent: "center",
     paddingHorizontal: 10,
+    borderRadius: 20,
+    marginHorizontal: 5,
+    marginBottom: 10,
+  },
+  addButtonText: {
+    display: "flex",
+    color: "black",
+    fontSize: 14,
+    justifyContent: "center",
+  },
+  addButtonContainer: {
+    position: "absolute",
+    bottom: 30,
+    right: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  addItemButton: {
+    backgroundColor: "#3498db",
+    padding: 15,
+    borderRadius: 50,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 5,
+    color: "white",
   },
 });

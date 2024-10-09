@@ -63,22 +63,24 @@ const Dashboard = () => {
       });
 
     fetchAllAccessories(user_id, searchText)
-      .then((accessories) => {
-        setAccessories(accessories);
+      .then((data) => {
+        setAccessories(data);
       })
       .catch(() => {
         setIsError("Failed to load your accessories.");
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
 
     fetchNewlyAddedClothes(user_id, searchText)
       .then((newlyAdded) => {
+        console.log(newlyAdded, "newly added");
         setNewlyAdded(newlyAdded);
       })
       .catch(() => {
+        console.log("here");
         setIsError("Failed to load your newly added clothes.");
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -97,6 +99,7 @@ const Dashboard = () => {
       </View>
     );
   }
+
 
   const handleItemClick = (item_id) => {
     router.push({
@@ -126,12 +129,12 @@ const Dashboard = () => {
         />
         <ClothesContainer
           title="Newly added..."
-          items={needsSomeLoving}
+          items={newlyAdded}
           onItemClick={handleItemClick}
         />
         <ClothesContainer
           title="These need some love..."
-          items={newlyAdded}
+          items={needsSomeLoving}
           onItemClick={handleItemClick}
         />
       </ScrollView>
