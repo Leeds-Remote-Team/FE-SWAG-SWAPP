@@ -5,6 +5,7 @@ import {
   ScrollView,
   Text,
   ActivityIndicator,
+  SafeAreaView,
 } from "react-native";
 import { Header } from "./Header";
 import { ClothesContainer } from "./ClothesContainer";
@@ -92,7 +93,7 @@ export const Dashboard = () => {
   }, [user_id]);
 
   if (isLoading) {
-    return <ActivityIndicator size="large" color="#FF69B4" />;
+    return <ActivityIndicator size="large" color="#7B3F00" />;
   }
 
   if (isError) {
@@ -111,38 +112,40 @@ export const Dashboard = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Header onSearch={fetchData} />
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        <ClothesContainer
-          title="Favourite Clothes..."
-          items={mostPopular}
-          onItemClick={handleItemClick}
-        />
-        <ClothesContainer
-          title="Newly added..."
-          items={newlyAdded}
-          onItemClick={handleItemClick}
-        />
-        <ClothesContainer
-          title="Recently worn Clothes..."
-          items={newest}
-          onItemClick={handleItemClick}
-        />
-        <ClothesContainer
-          title="Accessories..."
-          items={accessories}
-          onItemClick={handleItemClick}
-        />
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <Header onSearch={fetchData} />
+        <ScrollView contentContainerStyle={styles.scrollView}>
+          <ClothesContainer
+            title="Favourite Clothes..."
+            items={mostPopular}
+            onItemClick={handleItemClick}
+          />
+          <ClothesContainer
+            title="Newly added..."
+            items={newlyAdded}
+            onItemClick={handleItemClick}
+          />
+          <ClothesContainer
+            title="Recently worn Clothes..."
+            items={newest}
+            onItemClick={handleItemClick}
+          />
+          <ClothesContainer
+            title="Accessories..."
+            items={accessories}
+            onItemClick={handleItemClick}
+          />
 
-        <ClothesContainer
-          title="These need some love..."
-          items={needsSomeLoving}
-          onItemClick={handleItemClick}
-        />
-      </ScrollView>
-      <Footer />
-    </View>
+          <ClothesContainer
+            title="These need some love..."
+            items={needsSomeLoving}
+            onItemClick={handleItemClick}
+          />
+        </ScrollView>
+        <Footer />
+      </View>
+    </SafeAreaView>
   );
 };
 
