@@ -68,15 +68,6 @@ const clothes_item = () => {
     );
   }
 
-  // let tags = clotheItem.tags;
-  // for (let item in tags) {
-  //   if (item === "") {
-  //     delete tags[item];
-  //   }
-  // }
-
-  // tags = [Object.values(tags)];
-
   let tags = clotheItem.tags;
 
   for (let key in tags) {
@@ -144,10 +135,7 @@ const clothes_item = () => {
           <View style={styles.tagContainer}>
             {displayTags.map((tags, index) => (
               <View key={index} style={styles.tag}>
-                <Text style={styles.tagText}>
-                  {/* replace the tag below with displayTags */}
-                  {tags}
-                </Text>
+                <Text style={styles.tagText}>{tags}</Text>
               </View>
             ))}
           </View>
