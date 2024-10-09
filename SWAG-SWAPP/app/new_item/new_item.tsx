@@ -7,6 +7,7 @@ import {
   Pressable,
   TextInput,
   ScrollView,
+  SafeAreaView,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { ClothesContext } from "../_layout";
@@ -75,49 +76,51 @@ export default function newItem() {
   tagValues = [Object.values(tag)];
 
   return (
-    <View>
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        <View style={styles.container}>
-          <Image style={styles.image} source={postImage} src={postImage} />
-          <TextInput
-            style={styles.input}
-            placeholder="Enter name of item..."
-            value={clothesName}
-            onChangeText={setClothesName}
-          />
+    <SafeAreaView style={{ flex: 1 }}>
+      <View>
+        <ScrollView contentContainerStyle={styles.scrollView}>
+          <View style={styles.container}>
+            <Image style={styles.image} source={postImage} src={postImage} />
+            <TextInput
+              style={styles.input}
+              placeholder="Enter name of item..."
+              value={clothesName}
+              onChangeText={setClothesName}
+            />
 
-          <View style={styles.tagContainer}>
-            {tagKeys.map((tag, index) => (
-              <View key={index} style={styles.tag}>
-                <Text style={styles.tagText}>
-                  {tag}: {tagValues[0][index]}
-                </Text>
-              </View>
-            ))}
+            <View style={styles.tagContainer}>
+              {tagKeys.map((tag, index) => (
+                <View key={index} style={styles.tag}>
+                  <Text style={styles.tagText}>
+                    {tag}: {tagValues[0][index]}
+                  </Text>
+                </View>
+              ))}
+            </View>
+
+            <Text style={styles.descriptionLabel}>Description:</Text>
+            <TextInput
+              style={styles.descriptionText}
+              placeholder="This is a short description of the item."
+              value={description}
+              onChangeText={setDescription}
+            />
           </View>
-
-          <Text style={styles.descriptionLabel}>Description:</Text>
-          <TextInput
-            style={styles.descriptionText}
-            placeholder="This is a short description of the item."
-            value={description}
-            onChangeText={setDescription}
-          />
-        </View>
-        <View style={styles.addButtonContainer}>
-          <Pressable
-            onPress={handlePress}
-            style={styles.addItemButton}
-            disabled={posting}
-          >
-            <Text style={styles.addButtonText}> Add to Wardrobe </Text>
-          </Pressable>
-          <Pressable onPress={handleRetake} disabled={posting}>
-            <Icon name="reload-circle" size={55} />
-          </Pressable>
-        </View>
-      </ScrollView>
-    </View>
+          <View style={styles.addButtonContainer}>
+            <Pressable
+              onPress={handlePress}
+              style={styles.addItemButton}
+              disabled={posting}
+            >
+              <Text style={styles.addButtonText}> Add to Wardrobe </Text>
+            </Pressable>
+            <Pressable onPress={handleRetake} disabled={posting}>
+              <Icon name="reload-circle" size={55} />
+            </Pressable>
+          </View>
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 }
 
