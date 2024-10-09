@@ -77,7 +77,12 @@ const clothes_item = () => {
   }
 
   let displayTags = Object.keys(tags)
-    .filter((key) => key !== "wear_frequency" && key !== "last_date_worn")
+    .filter(
+      (key) =>
+        key !== "wear_frequency" &&
+        key !== "last_date_worn" &&
+        key !== "date_last_worn"
+    )
     .map((key) => tags[key]);
 
   const handleWearToday = () => {
