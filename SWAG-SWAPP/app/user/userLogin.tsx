@@ -12,6 +12,7 @@ import { Link } from "expo-router";
 import { useRouter } from "expo-router";
 import { UserAccountContext } from "../_layout";
 import CustomButton from "../../components/CustomButton";
+import { Logo } from "@/components/Logo";
 
 export default function UserLogin() {
   const [userNameText, setUserNameText] = useState("");
@@ -62,7 +63,7 @@ export default function UserLogin() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Logo size={350} useImage={true} />
 
       <TextInput
         style={styles.input}
@@ -91,7 +92,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     justifyContent: "center",
-    backgroundColor: "#F5F5F5",
+    backgroundColor: "#f8f4f0",
+    marginTop: -100,
   },
   title: {
     fontSize: 24,
@@ -112,7 +114,7 @@ const styles = StyleSheet.create({
   link: {
     marginTop: 15,
     textAlign: "center",
-    color: "#34495E",
+    color: "#C79B71",
     textDecorationLine: "underline",
     fontWeight: "bold",
   },
