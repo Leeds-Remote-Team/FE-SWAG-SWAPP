@@ -123,8 +123,8 @@ const EditClothesItem = () => {
         <TextInput
           style={styles.textInput}
           placeholder={description || "this is a short description"}
-          value={descriptionInput}
-          onChangeText={setDescriptionInput}
+          value={description}
+          onChangeText={setDescription}
         />
       </View>
 

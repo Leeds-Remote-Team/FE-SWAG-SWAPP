@@ -33,9 +33,9 @@ const clothes_item = () => {
         )
         .then((response) => {
           setClotheItem(response.data[0]);
-          setDescription(
-            response.data[0].tags.description || "this is a short description"
-          );
+          // setDescription(
+          //   response.data[0].tags.description || "this is a short description"
+          // );
           setIsLoading(false);
         })
         .catch((err) => {
@@ -128,7 +128,9 @@ const clothes_item = () => {
         </View>
         <Text style={styles.descriptionLabel}>Description:</Text>
         <Text style={styles.descriptionText}>
-          {description || "this is a short description"}
+          {description
+            ? description
+            : clotheItem.tags.description || "this is a short description"}
         </Text>
         <Text style={styles.descriptionText}>
           Last Worn: {clotheItem.tags.last_date_worn}
