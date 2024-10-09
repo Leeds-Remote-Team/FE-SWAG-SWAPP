@@ -71,9 +71,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#F0F0F0",
   },
   itemText: {
-    fontSize: 14,
-    color: "#34495E",
-    fontWeight: "500",
+    fontSize: 13,
+    color: "#4B4B4B",
+    fontWeight: "600",
     textAlign: "center",
     paddingHorizontal: 1,
   },

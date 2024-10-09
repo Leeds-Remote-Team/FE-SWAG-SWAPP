@@ -69,6 +69,7 @@ const clothes_item = () => {
   }
 
   const tags = [clotheItem.top_category, clotheItem.category, clotheItem.color];
+  console.log(clotheItem);
 
   const handleWearToday = () => {
     let newWearUpdate = {

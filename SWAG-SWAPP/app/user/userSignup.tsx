@@ -43,7 +43,7 @@ export default function UserSignup() {
         setUserAccount(newUser);
         setIsLoading(false);
         Alert.alert("Success", "Account created successfully!");
-        router.push("/camera/camera");
+        router.push("/Dashboard");
       })
       .catch((err) => {
         setIsLoading(false);
@@ -131,7 +131,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 20,
     paddingHorizontal: 15,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#black",
+    
   },
   link: {
     marginTop: 15,
