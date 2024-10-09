@@ -8,12 +8,10 @@ export const Header = ({ onSearch }) => {
   const router = useRouter();
 
   const handleLogin = () => {
-    Alert.alert("Success!", "Login Here.");
     router.push("/user/userLogin");
   };
 
   const handleHome = () => {
-    Alert.alert("Success!", "Welcome To Home Page.");
     router.push("/Dashboard");
   };
 
@@ -29,7 +27,6 @@ export const Header = ({ onSearch }) => {
         <Icon name="home" size={30} color="#4B4B4B" />
       </Pressable>
 
-      {/* Search bar */}
       <TextInput
         placeholder="Search a keyword here"
         style={styles.searchBar}
@@ -41,7 +38,6 @@ export const Header = ({ onSearch }) => {
         <Icon name="search" size={30} color="#4B4B4B" />
       </Pressable>
 
-      {/* Profile/Login button */}
       <Pressable style={styles.iconButton} onPress={handleLogin}>
         <Icon name="person" size={30} color="#4B4B4B" />
       </Pressable>

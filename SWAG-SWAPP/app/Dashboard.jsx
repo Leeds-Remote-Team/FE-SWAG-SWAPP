@@ -48,7 +48,6 @@ const Dashboard = () => {
 
     fetchRecentlyWornClothes(user_id, searchText)
       .then((newClothes) => {
-        console.log(newClothes, "recently worn");
         setNewest(newClothes);
       })
       .catch(() => {
@@ -76,11 +75,9 @@ const Dashboard = () => {
 
     fetchNewlyAddedClothes(user_id, searchText)
       .then((newlyAdded) => {
-        console.log(newlyAdded, "newly added");
         setNewlyAdded(newlyAdded);
       })
       .catch(() => {
-        console.log("here");
         setIsError("Failed to load your newly added clothes.");
       })
       .finally(() => {

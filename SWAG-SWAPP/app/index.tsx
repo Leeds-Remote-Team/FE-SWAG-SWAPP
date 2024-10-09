@@ -1,10 +1,11 @@
 import { View } from "react-native";
-import Dashboard from "../app/Dashboard"; 
+import UserLogin from "./user/userLogin";
+
 
 export default function Index() {
   return (
     <View style={{ flex: 1 }}>
-      <Dashboard />
+      <UserLogin />
     </View>
   );
 }
