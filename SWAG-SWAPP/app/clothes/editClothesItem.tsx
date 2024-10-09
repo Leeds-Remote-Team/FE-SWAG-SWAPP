@@ -13,6 +13,7 @@ import axios from "axios";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Header } from "../Header";
 import { UserAccountContext } from "../_layout";
+import { DescriptionContext } from "../_layout";
 
 const EditClothesItem = () => {
   const [userAccount] = useContext(UserAccountContext);
@@ -20,6 +21,8 @@ const EditClothesItem = () => {
   const [topCategory, setTopCategory] = useState("");
   const [category, setCategory] = useState("");
   const [color, setColor] = useState("");
+  const [description, setDescription] = useContext(DescriptionContext);
+  const [descriptionInput, setDescriptionInput] = useState(description || "");
 
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState("");
@@ -61,6 +64,7 @@ const EditClothesItem = () => {
         newDetails
       )
       .then(() => {
+        setDescription(descriptionInput);
         Alert.alert("Success!", "Clothes updated successfully.");
         router.push({
           pathname: "/clothes/clothes_item",
@@ -112,10 +116,17 @@ const EditClothesItem = () => {
           uri: clotheItem.img_url,
         }}
       />
-      <Text style={styles.descriptionLabel}>Description:</Text>
-      <Text style={styles.descriptionText}>
-        {clotheItem.description || "This is a short description of the item."}
-      </Text>
+      <Text style={styles.descriptionLabel}>Item Details:</Text>
+
+      <View style={styles.inputRow}>
+        <Text style={styles.label}>Description:</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder={description || "this is a short description"}
+          value={descriptionInput}
+          onChangeText={setDescriptionInput}
+        />
+      </View>
 
       <View style={styles.inputRow}>
         <Text style={styles.label}>Top Category:</Text>
