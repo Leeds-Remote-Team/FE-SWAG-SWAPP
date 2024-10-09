@@ -105,19 +105,18 @@ export default function newItem() {
           />
         </View>
         <View style={styles.addButtonContainer}>
-          <TouchableOpacity
+          <Pressable
             onPress={handlePress}
             style={styles.addItemButton}
             disabled={posting}
           >
             <Text style={styles.addButtonText}> Add to Wardrobe </Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handleRetake} disabled={posting}>
+          </Pressable>
+          <Pressable onPress={handleRetake} disabled={posting}>
             <Icon name="reload-circle" size={55} />
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </ScrollView>
-
     </View>
   );
 }
