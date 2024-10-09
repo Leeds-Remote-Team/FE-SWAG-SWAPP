@@ -12,15 +12,14 @@ import { Header } from "../Header";
 import axios from "axios";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { UserAccountContext } from "../_layout";
+import { DescriptionContext } from "../_layout";
 
 const clothes_item = () => {
   const [userAccount] = useContext(UserAccountContext);
   const [clotheItem, setClotheItem] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(null);
-  const [description, setDescription] = useState(
-    "This is a short description of the item."
-  );
+  const [description, setDescription] = useContext(DescriptionContext);
 
   const { item_id } = useLocalSearchParams();
 
@@ -34,6 +33,9 @@ const clothes_item = () => {
         )
         .then((response) => {
           setClotheItem(response.data[0]);
+          setDescription(
+            response.data[0].tags.description || "this is a short description"
+          );
           setIsLoading(false);
         })
         .catch((err) => {
@@ -101,7 +103,6 @@ const clothes_item = () => {
       params: {
         item_id: clotheItem.item_id,
       },
-      state: { description, setDescription },
     });
   };
 
@@ -127,7 +128,7 @@ const clothes_item = () => {
         </View>
         <Text style={styles.descriptionLabel}>Description:</Text>
         <Text style={styles.descriptionText}>
-          {clotheItem.description || description}
+          {description || "this is a short description"}
         </Text>
         <Text style={styles.descriptionText}>
           Last Worn: {clotheItem.tags.last_date_worn}

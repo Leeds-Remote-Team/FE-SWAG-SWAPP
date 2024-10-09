@@ -4,16 +4,21 @@ import { useRef } from "react";
 
 export const ClothesContext = createContext(null);
 export const UserAccountContext = createContext(null);
+export const DescriptionContext = createContext(null);
 
 export default function RootLayout() {
   const [clothesItems, setClothesItems] = useState({});
   const [userAccount, setUserAccount] = useState("");
+  const [description, setDescription] = useState("");
+
   return (
     <UserAccountContext.Provider value={[userAccount, setUserAccount]}>
       <ClothesContext.Provider value={[clothesItems, setClothesItems]}>
-        <Stack>
-          <Stack.Screen name="index" />
-        </Stack>
+        <DescriptionContext.Provider value={[description, setDescription]}>
+          <Stack>
+            <Stack.Screen name="index" />
+          </Stack>
+        </DescriptionContext.Provider>
       </ClothesContext.Provider>
     </UserAccountContext.Provider>
   );

@@ -13,21 +13,16 @@ import axios from "axios";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Header } from "../Header";
 import { UserAccountContext } from "../_layout";
+import { DescriptionContext } from "../_layout";
 
-interface EditClothesItemProps {
-  description: string;
-  setDescription: (value: string) => void;
-}
-const EditClothesItem: React.FC<EditClothesItemProps> = ({
-  description,
-  setDescription,
-}) => {
+const EditClothesItem = () => {
   const [userAccount] = useContext(UserAccountContext);
   const [clotheItem, setClotheItem] = useState(null);
   const [topCategory, setTopCategory] = useState("");
   const [category, setCategory] = useState("");
   const [color, setColor] = useState("");
-  //const [description, setDescription] = useState("");
+  const [description, setDescription] = useContext(DescriptionContext);
+  const [descriptionInput, setDescriptionInput] = useState("");
 
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState("");
@@ -69,6 +64,7 @@ const EditClothesItem: React.FC<EditClothesItemProps> = ({
         newDetails
       )
       .then(() => {
+        setDescription(descriptionInput);
         Alert.alert("Success!", "Clothes updated successfully.");
         router.push({
           pathname: "/clothes/clothes_item",
@@ -126,9 +122,9 @@ const EditClothesItem: React.FC<EditClothesItemProps> = ({
         <Text style={styles.label}>Description:</Text>
         <TextInput
           style={styles.textInput}
-          placeholder={description}
-          value={description}
-          onChangeText={setDescription}
+          placeholder={description || "this is a short description"}
+          value={descriptionInput}
+          onChangeText={setDescriptionInput}
         />
       </View>
 
