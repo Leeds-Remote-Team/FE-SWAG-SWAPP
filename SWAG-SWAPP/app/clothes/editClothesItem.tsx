@@ -14,17 +14,19 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { Header } from "../Header";
 import { UserAccountContext } from "../_layout";
 
+interface editClothesItemprops {}
 const EditClothesItem = () => {
   const [userAccount] = useContext(UserAccountContext);
   const [clotheItem, setClotheItem] = useState(null);
   const [topCategory, setTopCategory] = useState("");
   const [category, setCategory] = useState("");
   const [color, setColor] = useState("");
+  //const [description, setDescription] = useState("");
 
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState("");
 
-  const { item_id } = useLocalSearchParams();
+  const { item_id, description, setDescription } = useLocalSearchParams();
   const router = useRouter();
 
   useEffect(() => {
@@ -112,10 +114,19 @@ const EditClothesItem = () => {
           uri: clotheItem.img_url,
         }}
       />
-      <Text style={styles.descriptionLabel}>Description:</Text>
-      <Text style={styles.descriptionText}>
-        {clotheItem.description || "This is a short description of the item."}
-      </Text>
+      <Text style={styles.descriptionLabel}>Item Details:</Text>
+
+      <View style={styles.inputRow}>
+        <Text style={styles.label}>Description:</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder={
+            clotheItem.description || "This is a short description of the item."
+          }
+          value={description}
+          onChangeText={setDescription}
+        />
+      </View>
 
       <View style={styles.inputRow}>
         <Text style={styles.label}>Top Category:</Text>

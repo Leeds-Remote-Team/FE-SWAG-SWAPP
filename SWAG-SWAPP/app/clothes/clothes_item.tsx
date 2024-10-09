@@ -18,6 +18,9 @@ const clothes_item = () => {
   const [clotheItem, setClotheItem] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(null);
+  const [description, setDescription] = useState<string>(
+    "This is a short description of the item."
+  );
 
   const { item_id } = useLocalSearchParams();
 
@@ -95,7 +98,11 @@ const clothes_item = () => {
   const handleEdit = () => {
     router.push({
       pathname: "/clothes/editClothesItem",
-      params: { item_id: clotheItem.item_id },
+      params: {
+        item_id: clotheItem.item_id,
+        description: description,
+        setDescription: setDescription,
+      },
     });
   };
 
@@ -121,7 +128,7 @@ const clothes_item = () => {
         </View>
         <Text style={styles.descriptionLabel}>Description:</Text>
         <Text style={styles.descriptionText}>
-          {clotheItem.description || "This is a short description of the item."}
+          {clotheItem.description || description}
         </Text>
         <Text style={styles.descriptionText}>
           Last Worn: {clotheItem.tags.last_date_worn}
