@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
   card: {
     width: 120,
     height: 170,
-    backgroundColor: "#FFFFFF",
-    borderRadius: 12,
+    backgroundColor: "#f8f4f0", //container color #EDE1D5
+    borderRadius: 5,
     marginRight: 10,
     padding: 10,
     justifyContent: "center",
@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
   image: {
     width: 100,
     height: 100,
-    borderRadius: 10,
-    marginBottom: 8,
+    borderRadius: 5,
+    marginBottom: 5,
     backgroundColor: "#F0F0F0",
   },
   itemText: {
@@ -75,6 +75,6 @@ const styles = StyleSheet.create({
     color: "#34495E",
     fontWeight: "500",
     textAlign: "center",
-    paddingHorizontal: 5,
+    paddingHorizontal: 1,
   },
 });
