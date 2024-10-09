@@ -3,13 +3,10 @@ import {
   View,
   StyleSheet,
   ScrollView,
-  Pressable,
   Text,
   ActivityIndicator,
 } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
 import { Header } from "./Header";
-import { Link } from "expo-router";
 import { ClothesContainer } from "./ClothesContainer";
 import {
   fetchMostPopularClothes,
@@ -20,6 +17,8 @@ import {
 } from "../Helpers/fetchSortedClothes";
 import { ClothesContext } from "./_layout";
 import { useRouter } from "expo-router";
+import { Footer } from "../components/Footer";
+
 
 const Dashboard = () => {
   const user_id = 3;
@@ -139,13 +138,7 @@ const Dashboard = () => {
           onItemClick={handleItemClick}
         />
       </ScrollView>
-      <View style={styles.addButtonContainer}>
-        <Pressable style={styles.addButton}>
-          <Link href="/camera/camera">
-            <Icon name="add" size={30} color="white" />
-          </Link>
-        </Pressable>
-      </View>
+      <Footer />
     </View>
   );
 };
@@ -153,7 +146,7 @@ const Dashboard = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f4f4f4",
+    backgroundColor: "#f8f4f0",
   },
   scrollView: {
     paddingBottom: 100,
@@ -166,7 +159,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   addButton: {
-    backgroundColor: "#2f3640",
+    backgroundColor: "#C79B71",
     padding: 15,
     borderRadius: 50,
     shadowColor: "#000",

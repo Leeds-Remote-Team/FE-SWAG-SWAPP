@@ -12,6 +12,7 @@ import { Link } from "expo-router";
 import { useRouter } from "expo-router";
 import { UserAccountContext } from "../_layout";
 import CustomButton from "../../components/CustomButton";
+import { Logo } from "@/components/Logo";
 
 export default function UserSignup() {
   const [userNameText, setUserNameText] = useState("");
@@ -62,7 +63,7 @@ export default function UserSignup() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Signup</Text>
+      <Logo size={350} useImage={true} />
 
       <TextInput
         style={styles.input}
@@ -89,7 +90,12 @@ export default function UserSignup() {
         onChangeText={setPasswordText}
         secureTextEntry
       />
-      <CustomButton title="Signup" onPress={handleSignup} style={undefined} textStyle={undefined} />
+      <CustomButton
+        title="Signup"
+        onPress={handleSignup}
+        style={undefined}
+        textStyle={undefined}
+      />
 
       <Link style={styles.link} href="/user/userLogin">
         Already Have An Account? Log In!
@@ -103,7 +109,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     justifyContent: "center",
-    backgroundColor: "#F5F5F5",
+    backgroundColor: "#f8f4f0",
+    marginTop: -100,
   },
   title: {
     fontSize: 24,
@@ -111,6 +118,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 30,
     color: "#34495E",
+  },
+  logoContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 15,
   },
   input: {
     height: 50,
@@ -124,7 +136,7 @@ const styles = StyleSheet.create({
   link: {
     marginTop: 15,
     textAlign: "center",
-    color: "#34495E", 
+    color: "#C79B71",
     textDecorationLine: "underline",
     fontWeight: "bold",
   },
