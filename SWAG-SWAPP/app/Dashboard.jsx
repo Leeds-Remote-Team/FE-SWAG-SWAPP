@@ -17,6 +17,7 @@ import {
   fetchRecentlyWornClothes,
   fetchNeedsSomeLovingClothes,
   fetchNewlyAddedClothes,
+  fetchAccessories,
 } from "../Helpers/fetchSortedClothes";
 import { ClothesContext } from "./_layout";
 import { useRouter } from "expo-router";
@@ -48,6 +49,7 @@ const Dashboard = () => {
 
     fetchRecentlyWornClothes(user_id, searchText)
       .then((newClothes) => {
+        console.log(newClothes, "recently worn");
         setNewest(newClothes);
       })
       .catch(() => {
@@ -62,9 +64,12 @@ const Dashboard = () => {
         setIsError("Failed to load clothes that need some love.");
       });
 
-    fetchAllAccessories(user_id, searchText)
+    fetchAccessories(user_id, searchText)
       .then((data) => {
-        setAccessories(data);
+        const filteredData = data.filter(
+          (item) => item.top_category === "accessories"
+        );
+        setAccessories(filteredData);
       })
       .catch(() => {
         setIsError("Failed to load your accessories.");
