@@ -11,7 +11,6 @@ import {
 import { Header } from "../Header";
 import axios from "axios";
 import {
-  useGlobalSearchParams,
   useLocalSearchParams,
   useRouter,
 } from "expo-router";
