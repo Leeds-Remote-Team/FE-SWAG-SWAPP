@@ -7,6 +7,7 @@ import {
   Pressable,
   Alert,
   ScrollView,
+  SafeAreaView,
 } from "react-native";
 import { Header } from "../Header";
 import axios from "axios";
@@ -108,6 +109,7 @@ const clothes_item = () => {
   };
 
   return (
+  <SafeAreaView style={{ flex: 1 }}>
     <View style={styles.container}>
       <ScrollView>
         <Header onSearch={undefined} />
@@ -147,6 +149,7 @@ const clothes_item = () => {
         </Pressable>
       </ScrollView>
     </View>
+     </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
@@ -202,14 +205,14 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   wearTodayButton: {
-    backgroundColor: "#2f3640",
+    backgroundColor: "#C79B71",
     padding: 15,
     borderRadius: 10,
     marginTop: 20,
     alignItems: "center",
   },
   editButton: {
-    backgroundColor: "#2f3640",
+    backgroundColor: "#C79B71",
     padding: 15,
     borderRadius: 10,
     marginTop: 15,

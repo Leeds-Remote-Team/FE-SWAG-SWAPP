@@ -3,10 +3,10 @@ import {
   Text,
   Image,
   StyleSheet,
-  Button,
   Pressable,
   TextInput,
   ScrollView,
+  SafeAreaView,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { ClothesContext } from "../_layout";
@@ -23,7 +23,7 @@ export default function newItem() {
   const { Category, Color } = clothesItems[0]._tags_map;
   const TopCategory = clothesItems[0]._tags_map["Top Category"];
   const [posting, setPosting] = useState(true);
-  const [postImage, setPostImage] = useState(clothesItems.url); // image url
+  const [postImage, setPostImage] = useState(clothesItems.url);
   const [cat, setCat] = useState(Category);
   const [topCat, setTopCat] = useState(TopCategory);
   const [colorTag, setColorTag] = useState(Color);
@@ -32,14 +32,20 @@ export default function newItem() {
   const user_id = 3;
   const [clothesData, setClothesData] = useState({});
   const [clothesName, setClothesName] = useState("");
+  const [description, setDescription] = useState("");
   const router = useRouter();
-
-  console.log(clothesItems);
+  if (colorTag === undefined) {
+    setColorTag("None");
+  }
 
   useEffect(() => {
     tag.name = clothesName;
     tag.wear_frequency = 0;
-    tag.last_worn = "00/00/0000";
+    tag.date_last_worn = "New Item";
+    tag.description = description;
+    console.log(colorTag);
+
+    console.log(colorTag, Color);
     setClothesData({
       user_id: user_id,
       img_url: postImage,
@@ -49,7 +55,7 @@ export default function newItem() {
       color: colorTag,
     });
     setPosting(false);
-  }, [clothesName]);
+  }, [clothesName, description]);
 
   const postClothes = (user_id, clothesData) => {
     return api.post(`/clothes/${user_id}`, clothesData);
@@ -64,124 +70,85 @@ export default function newItem() {
   };
 
   const handleRetake = () => {
-    console.log("In handler");
     setClothesItems([{ _tags_map: [] }]);
     router.push("/camera/camera");
   };
+
   const tagKeys = Object.keys({ ...tag });
   let tagValues = [];
   tagValues = [Object.values(tag)];
 
   return (
-    <View>
-      <View style={styles.container}>
-        <Image style={styles.image} source={postImage} src={postImage} />
-        <TextInput
-          style={styles.input}
-          placeholder="Enter name of item..."
-          value={clothesName}
-          onChangeText={setClothesName}
-        />
+    <SafeAreaView style={{ flex: 1 }}>
+      <View>
+        <ScrollView contentContainerStyle={styles.scrollView}>
+          <View style={styles.container}>
+            <Image style={styles.image} source={postImage} src={postImage} />
+            <TextInput
+              style={styles.input}
+              placeholder="Enter name of item..."
+              value={clothesName}
+              onChangeText={setClothesName}
+            />
 
-        <View style={styles.tagContainer}>
-          {tagKeys.map((tag, index) => (
-            <View key={index} style={styles.tag}>
-              <Text style={styles.tagText}>
-                {tag}: {tagValues[0][index]}
-              </Text>
-            </View>
-          ))}
-        </View>
+          <View style={styles.tagContainer}>
+            {tagKeys.map((tag, index) => (
+              <View key={index} style={styles.tag}>
+                <Text style={styles.tagText}>
+                  {tag === "date_last_worn" || tag === "wear_frequency"
+                    ? ""
+                    : tag}{" "}
+                  {tag === "wear_frequency"
+                    ? "Never Worn"
+                    : tagValues[0][index] === "New Item"
+                    ? tagValues[0][index]
+                    : ": " + tagValues[0][index]}
+                </Text>
+              </View>
+            ))}
+          </View>
 
-        <Text style={styles.descriptionLabel}>Description:</Text>
-        <Text style={styles.descriptionText}>
-          This is an example of a description. I think the user should be able
-          to edit this manually no? Like this is my jumper I got, i got it as a
-          gift its old as hell and has no resale value... love it thought!
-        </Text>
+
+            <Text style={styles.descriptionLabel}>Description:</Text>
+            <TextInput
+              style={styles.descriptionText}
+              placeholder="This is a short description of the item."
+              value={description}
+              onChangeText={setDescription}
+            />
+          </View>
+          <View style={styles.addButtonContainer}>
+            <Pressable
+              onPress={handlePress}
+              style={styles.addItemButton}
+              disabled={posting}
+            >
+              <Text style={styles.addButtonText}> Add to Wardrobe </Text>
+            </Pressable>
+            <Pressable onPress={handleRetake} disabled={posting}>
+              <Icon name="reload-circle" size={55} color="#C79B71" />
+            </Pressable>
+          </View>
+        </ScrollView>
       </View>
-      <View style={styles.addButtonContainer}>
-        <Pressable
-          onPress={handlePress}
-          style={styles.addItemButton}
-          disabled={posting}
-        >
-          {/* <Icon name="shirt-outline" size={40} /> */}
-          <Text style={styles.addButtonText}> Add to Wardrobe </Text>
-        </Pressable>
-        <Pressable onPress={handleRetake} disabled={posting}>
-          <Icon name="reload-circle" size={40} />
-        </Pressable>
-      </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  clothesImage: {
-    width: 50,
-    height: 50,
-  },
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#f8f4f0",
   },
   image: {
-    width: 365,
-    height: 400,
+    width: 300,
+    height: 300,
     borderRadius: 10,
     marginBottom: 20,
-  },
-  name: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#34495E",
-    marginBottom: 10,
-    textAlign: "center",
-  },
-  tagContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    marginVertical: 10,
-  },
-  tag: {
-    display: "flex",
-    backgroundColor: "#3498db",
-    paddingVertical: 5,
-    height: 35,
-    width: "auto",
-
-    justifyContent: "center",
-    paddingHorizontal: 10,
-    borderRadius: 20,
-    marginHorizontal: 5,
-    marginBottom: 10,
-  },
-  tagText: {
-    display: "flex",
-    color: "#fff",
-    fontSize: 14,
-    justifyContent: "center",
-  },
-  descriptionLabel: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginVertical: 10,
-    color: "#2C3E50",
-  },
-  descriptionText: {
-    fontSize: 16,
-    color: "#7F8C8D",
-    marginBottom: 5,
-  },
-
-  buttonText: {
-    color: "#fff",
-    fontSize: 18,
-    textAlign: "center",
-    fontWeight: "bold",
+    alignSelf: "center",
+    borderColor: "#ddd",
+    borderWidth: 1,
   },
   input: {
     height: 50,
@@ -191,43 +158,64 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingHorizontal: 15,
     backgroundColor: "#FFFFFF",
-    color: "black",
+    color: "#2f3640",
   },
-  addButton: {
-    display: "flex",
-    backgroundColor: "#3498db",
-    paddingVertical: 5,
-    height: 35,
-    width: "auto",
-
-    justifyContent: "center",
-    paddingHorizontal: 10,
-    borderRadius: 20,
-    marginHorizontal: 5,
-    marginBottom: 10,
+  tagContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "flex-start",
+    marginVertical: 10,
+    marginLeft: -5, 
   },
-  addButtonText: {
-    display: "flex",
-    color: "black",
-    fontSize: 14,
-    justifyContent: "center",
-  },
-  addButtonContainer: {
-    position: "absolute",
-    bottom: 30,
-    right: 20,
+  tag: {
+    backgroundColor: "#C79B71",
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 12,
+    margin: 5, 
+    minWidth: 100,
     justifyContent: "center",
     alignItems: "center",
   },
+  tagText: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  descriptionLabel: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginVertical: 10,
+    color: "#2f3640",
+  },
+  descriptionInput: {
+    fontSize: 16,
+    color: "#7F8C8D",
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 15,
+    backgroundColor: "#FFFFFF",
+    marginBottom: 20,
+    height: 100,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   addItemButton: {
-    backgroundColor: "#3498db",
+    backgroundColor: "#C79B71",
     padding: 15,
     borderRadius: 50,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 5,
-    color: "white",
+  },
+  addButtonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  scrollView: {
+    paddingBottom: 100,
   },
 });

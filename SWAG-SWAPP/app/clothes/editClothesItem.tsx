@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     width: "65%",
   },
   submitButton: {
-    backgroundColor: "#2f3640",
+    backgroundColor: "#C79B71",
     padding: 15,
     borderRadius: 10,
     marginTop: 20,
@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
   },
 
   deleteButton: {
-    backgroundColor: "#FF0000",
+    backgroundColor: "#C79B71",
     padding: 15,
     borderRadius: 10,
     marginTop: 20,

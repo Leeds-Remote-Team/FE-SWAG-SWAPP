@@ -3,13 +3,11 @@ import {
   View,
   StyleSheet,
   ScrollView,
-  Pressable,
   Text,
   ActivityIndicator,
+  SafeAreaView,
 } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
 import { Header } from "./Header";
-import { Link } from "expo-router";
 import { ClothesContainer } from "./ClothesContainer";
 import {
   fetchMostPopularClothes,
@@ -20,6 +18,8 @@ import {
 } from "../Helpers/fetchSortedClothes";
 import { ClothesContext } from "./_layout";
 import { useRouter } from "expo-router";
+import { Footer } from "../components/Footer";
+
 
 const Dashboard = () => {
   const user_id = 3;
@@ -48,7 +48,11 @@ const Dashboard = () => {
 
     fetchRecentlyWornClothes(user_id, searchText)
       .then((newClothes) => {
-        setNewest(newClothes);
+        console.log(newClothes);
+        const wornClothes = newClothes.filter(
+          (item) => item.tags.wear_frequency > 0
+        );
+        setNewest(wornClothes);
       })
       .catch(() => {
         setIsError("Failed to load your recently worn clothes.");
@@ -90,7 +94,7 @@ const Dashboard = () => {
   }, [user_id]);
 
   if (isLoading) {
-    return <ActivityIndicator size="large" color="#FF69B4" />;
+    return <ActivityIndicator size="large" color="#7B3F00" />;
   }
 
   if (isError) {
@@ -100,7 +104,6 @@ const Dashboard = () => {
       </View>
     );
   }
-
 
   const handleItemClick = (item_id) => {
     router.push({
@@ -138,14 +141,9 @@ const Dashboard = () => {
           items={needsSomeLoving}
           onItemClick={handleItemClick}
         />
+        <View style={{ height: 100 }} />
       </ScrollView>
-      <View style={styles.addButtonContainer}>
-        <Pressable style={styles.addButton}>
-          <Link href="/camera/camera">
-            <Icon name="add" size={30} color="white" />
-          </Link>
-        </Pressable>
-      </View>
+      <Footer />
     </View>
   );
 };
@@ -153,27 +151,10 @@ const Dashboard = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f4f4f4",
+    backgroundColor: "#f8f4f0",
   },
   scrollView: {
-    paddingBottom: 100,
-  },
-  addButtonContainer: {
-    position: "absolute",
-    bottom: 30,
-    right: 20,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  addButton: {
-    backgroundColor: "#2f3640",
-    padding: 15,
-    borderRadius: 50,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 5,
+    paddingBottom: 10, 
   },
   errorContainer: {
     flex: 1,
