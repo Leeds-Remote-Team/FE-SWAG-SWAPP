@@ -3,7 +3,6 @@ import {
   Text,
   Image,
   StyleSheet,
-  Button,
   Pressable,
   TextInput,
   ScrollView,
@@ -24,7 +23,7 @@ export default function newItem() {
   const { Category, Color } = clothesItems[0]._tags_map;
   const TopCategory = clothesItems[0]._tags_map["Top Category"];
   const [posting, setPosting] = useState(true);
-  const [postImage, setPostImage] = useState(clothesItems.url); // image url
+  const [postImage, setPostImage] = useState(clothesItems.url);
   const [cat, setCat] = useState(Category);
   const [topCat, setTopCat] = useState(TopCategory);
   const [colorTag, setColorTag] = useState(Color);
@@ -38,8 +37,6 @@ export default function newItem() {
   if (colorTag === undefined) {
     setColorTag("None");
   }
-
-  console.log(clothesItems);
 
   useEffect(() => {
     tag.name = clothesName;
@@ -73,10 +70,10 @@ export default function newItem() {
   };
 
   const handleRetake = () => {
-    console.log("In handler");
     setClothesItems([{ _tags_map: [] }]);
     router.push("/camera/camera");
   };
+
   const tagKeys = Object.keys({ ...tag });
   let tagValues = [];
   tagValues = [Object.values(tag)];
@@ -129,7 +126,7 @@ export default function newItem() {
               <Text style={styles.addButtonText}> Add to Wardrobe </Text>
             </Pressable>
             <Pressable onPress={handleRetake} disabled={posting}>
-              <Icon name="reload-circle" size={55} />
+              <Icon name="reload-circle" size={55} color="#C79B71" />
             </Pressable>
           </View>
         </ScrollView>
@@ -139,14 +136,10 @@ export default function newItem() {
 }
 
 const styles = StyleSheet.create({
-  clothesImage: {
-    width: 50,
-    height: 50,
-  },
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "#f8f4f0",
   },
   image: {
     width: 300,
@@ -157,58 +150,6 @@ const styles = StyleSheet.create({
     borderColor: "#ddd",
     borderWidth: 1,
   },
-  name: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#34495E",
-    marginBottom: 10,
-    textAlign: "center",
-  },
-  tagContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    marginVertical: 10,
-  },
-  tag: {
-    display: "flex",
-    backgroundColor: "#3498db",
-    paddingVertical: 5,
-    height: 35,
-    width: "auto",
-
-    justifyContent: "center",
-    paddingHorizontal: 10,
-    borderRadius: 20,
-    marginHorizontal: 5,
-    marginBottom: 10,
-  },
-  tagText: {
-    display: "flex",
-    color: "#fff",
-    fontSize: 14,
-    justifyContent: "center",
-  },
-  descriptionLabel: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginVertical: 10,
-    color: "#2C3E50",
-  },
-  descriptionText: {
-    fontSize: 16,
-    color: "#7F8C8D",
-    marginBottom: 5,
-    height: 60,
-    paddingLeft: 10,
-  },
-
-  buttonText: {
-    color: "white",
-    fontSize: 18,
-    textAlign: "center",
-    fontWeight: "bold",
-  },
   input: {
     height: 50,
     borderColor: "#ccc",
@@ -217,41 +158,64 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingHorizontal: 15,
     backgroundColor: "#FFFFFF",
-    color: "black",
+    color: "#2f3640",
   },
-  scrollView: {
-    paddingBottom: 100,
+  tagContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "flex-start",
+    marginVertical: 10,
+    marginLeft: -5, 
   },
-  addButton: {
-    display: "flex",
-    backgroundColor: "#3498db",
-    paddingVertical: 5,
-    height: 35,
-    width: "auto",
-
-    justifyContent: "center",
-    paddingHorizontal: 10,
-    borderRadius: 20,
-    marginHorizontal: 5,
-    marginBottom: 10,
-  },
-  addButtonText: {
-    display: "flex",
-    color: "white",
-    fontSize: 14,
-    justifyContent: "center",
-  },
-  addButtonContainer: {
-    position: "absolute",
-    bottom: 0,
-    right: 5,
-    left: 5,
+  tag: {
+    backgroundColor: "#C79B71",
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 12,
+    margin: 5, 
+    minWidth: 100,
     justifyContent: "center",
     alignItems: "center",
   },
+  tagText: {
+    color: "#fff",
+    fontSize: 14,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  descriptionLabel: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginVertical: 10,
+    color: "#2f3640",
+  },
+  descriptionInput: {
+    fontSize: 16,
+    color: "#7F8C8D",
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 15,
+    backgroundColor: "#FFFFFF",
+    marginBottom: 20,
+    height: 100,
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   addItemButton: {
-    backgroundColor: "#2f3640",
+    backgroundColor: "#C79B71",
     padding: 15,
     borderRadius: 50,
+  },
+  addButtonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  scrollView: {
+    paddingBottom: 100,
   },
 });

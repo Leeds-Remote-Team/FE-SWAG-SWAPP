@@ -26,7 +26,7 @@ export const Header = ({ onSearch }) => {
     <View style={styles.wrapper}>
       <View style={styles.header}>
         <Pressable style={styles.iconButton} onPress={handleHome}>
-          <Icon name="home" size={30} color="#4B4B4B" />
+          <Icon name="home" size={30} color="#C79B71" />
         </Pressable>
 
         <View style={styles.searchContainer}>
@@ -38,12 +38,12 @@ export const Header = ({ onSearch }) => {
             placeholderTextColor="#A0A0A0"
           />
           <Pressable onPress={handleSearch} style={styles.searchButton}>
-            <Icon name="search" size={24} color="#4B4B4B" />
+            <Icon name="search" size={24} color="#C79B71" />
           </Pressable>
         </View>
 
         <Pressable style={styles.iconButton} onPress={handleLogin}>
-          <Icon name="person" size={30} color="#4B4B4B" />
+          <Icon name="person" size={30} color="#C79B71" />
         </Pressable>
       </View>
     </View>

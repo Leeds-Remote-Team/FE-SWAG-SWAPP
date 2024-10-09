@@ -20,7 +20,8 @@ import { ClothesContext } from "./_layout";
 import { useRouter } from "expo-router";
 import { Footer } from "../components/Footer";
 
-export const Dashboard = () => {
+
+const Dashboard = () => {
   const user_id = 3;
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -112,40 +113,38 @@ export const Dashboard = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <Header onSearch={fetchData} />
-        <ScrollView contentContainerStyle={styles.scrollView}>
-          <ClothesContainer
-            title="Favourite Clothes..."
-            items={mostPopular}
-            onItemClick={handleItemClick}
-          />
-          <ClothesContainer
-            title="Newly added..."
-            items={newlyAdded}
-            onItemClick={handleItemClick}
-          />
-          <ClothesContainer
-            title="Recently worn Clothes..."
-            items={newest}
-            onItemClick={handleItemClick}
-          />
-          <ClothesContainer
-            title="Accessories..."
-            items={accessories}
-            onItemClick={handleItemClick}
-          />
-
-          <ClothesContainer
-            title="These need some love..."
-            items={needsSomeLoving}
-            onItemClick={handleItemClick}
-          />
-        </ScrollView>
-        <Footer />
-      </View>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <Header onSearch={fetchData} />
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <ClothesContainer
+          title="Favourite Clothes..."
+          items={mostPopular}
+          onItemClick={handleItemClick}
+        />
+        <ClothesContainer
+          title="Recently worn Clothes..."
+          items={newest}
+          onItemClick={handleItemClick}
+        />
+        <ClothesContainer
+          title="Accessories..."
+          items={accessories}
+          onItemClick={handleItemClick}
+        />
+        <ClothesContainer
+          title="Newly added..."
+          items={newlyAdded}
+          onItemClick={handleItemClick}
+        />
+        <ClothesContainer
+          title="These need some love..."
+          items={needsSomeLoving}
+          onItemClick={handleItemClick}
+        />
+        <View style={{ height: 100 }} />
+      </ScrollView>
+      <Footer />
+    </View>
   );
 };
 
@@ -155,24 +154,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f8f4f0",
   },
   scrollView: {
-    paddingBottom: 100,
-  },
-  addButtonContainer: {
-    position: "absolute",
-    bottom: 30,
-    right: 20,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  addButton: {
-    backgroundColor: "#C79B71",
-    padding: 15,
-    borderRadius: 50,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 5,
+    paddingBottom: 10, 
   },
   errorContainer: {
     flex: 1,

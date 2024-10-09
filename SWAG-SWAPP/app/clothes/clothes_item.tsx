@@ -196,14 +196,14 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   wearTodayButton: {
-    backgroundColor: "#2f3640",
+    backgroundColor: "#C79B71",
     padding: 15,
     borderRadius: 10,
     marginTop: 20,
     alignItems: "center",
   },
   editButton: {
-    backgroundColor: "#2f3640",
+    backgroundColor: "#C79B71",
     padding: 15,
     borderRadius: 10,
     marginTop: 15,
