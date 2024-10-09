@@ -100,17 +100,19 @@ export default function newItem() {
           gift its old as hell and has no resale value... love it thought!
         </Text>
       </View>
-      <TouchableOpacity
-        onPress={handlePress}
-        style={styles.addButton}
-        disabled={posting}
-      >
-        {/* <Icon name="shirt-outline" size={40} /> */}
-        <Text style={styles.addButtonText}> Add to Wardrobe </Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={handleRetake} disabled={posting}>
-        <Icon name="reload-circle" size={40} />
-      </TouchableOpacity>
+      <View style={styles.addButtonContainer}>
+        <TouchableOpacity
+          onPress={handlePress}
+          style={styles.addItemButton}
+          disabled={posting}
+        >
+          {/* <Icon name="shirt-outline" size={40} /> */}
+          <Text style={styles.addButtonText}> Add to Wardrobe </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleRetake} disabled={posting}>
+          <Icon name="reload-circle" size={40} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -209,5 +211,23 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 14,
     justifyContent: "center",
+  },
+  addButtonContainer: {
+    position: "absolute",
+    bottom: 30,
+    right: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  addItemButton: {
+    backgroundColor: "#3498db",
+    padding: 15,
+    borderRadius: 50,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 5,
+    color: "white",
   },
 });
