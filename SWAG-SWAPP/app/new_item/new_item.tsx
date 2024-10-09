@@ -32,6 +32,7 @@ export default function newItem() {
   const user_id = 3;
   const [clothesData, setClothesData] = useState({});
   const [clothesName, setClothesName] = useState("");
+  const [description, setDescription] = useState("");
   const router = useRouter();
 
   console.log(clothesItems);
@@ -40,6 +41,7 @@ export default function newItem() {
     tag.name = clothesName;
     tag.wear_frequency = 0;
     tag.date_last_worn = "00/00/0000";
+    tag.description = description;
     setClothesData({
       user_id: user_id,
       img_url: postImage,
@@ -49,7 +51,7 @@ export default function newItem() {
       color: colorTag,
     });
     setPosting(false);
-  }, [clothesName]);
+  }, [clothesName, description]);
 
   const postClothes = (user_id, clothesData) => {
     return api.post(`/clothes/${user_id}`, clothesData);
@@ -95,11 +97,12 @@ export default function newItem() {
           </View>
 
           <Text style={styles.descriptionLabel}>Description:</Text>
-          <Text style={styles.descriptionText}>
-            This is an example of a description. I think the user should be able
-            to edit this manually no? Like this is my jumper I got, i got it as
-            a gift its old as hell and has no resale value... love it thought!
-          </Text>
+          <TextInput
+            style={styles.descriptionText}
+            placeholder="This is a short description of the item."
+            value={description}
+            onChangeText={setDescription}
+          />
         </View>
         <View style={styles.addButtonContainer}>
           <TouchableOpacity
@@ -110,7 +113,7 @@ export default function newItem() {
             <Text style={styles.addButtonText}> Add to Wardrobe </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={handleRetake} disabled={posting}>
-            <Icon name="reload-circle" size={40} />
+            <Icon name="reload-circle" size={55} />
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -129,10 +132,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5f5f5",
   },
   image: {
-    width: 365,
-    height: 400,
+    width: 300,
+    height: 300,
     borderRadius: 10,
     marginBottom: 20,
+    alignSelf: "center",
+    borderColor: "#ddd",
+    borderWidth: 1,
   },
   name: {
     fontSize: 24,
@@ -176,10 +182,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#7F8C8D",
     marginBottom: 5,
+    height: 60,
+    paddingLeft: 10,
   },
 
   buttonText: {
-    color: "#fff",
+    color: "white",
     fontSize: 18,
     textAlign: "center",
     fontWeight: "bold",
@@ -212,7 +220,7 @@ const styles = StyleSheet.create({
   },
   addButtonText: {
     display: "flex",
-    color: "black",
+    color: "white",
     fontSize: 14,
     justifyContent: "center",
   },
