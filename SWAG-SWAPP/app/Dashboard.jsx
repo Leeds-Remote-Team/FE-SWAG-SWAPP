@@ -20,7 +20,6 @@ import { ClothesContext } from "./_layout";
 import { useRouter } from "expo-router";
 import { Footer } from "../components/Footer";
 
-
 const Dashboard = () => {
   const user_id = 3;
   const [isLoading, setIsLoading] = useState(false);
@@ -117,27 +116,27 @@ const Dashboard = () => {
       <Header onSearch={fetchData} />
       <ScrollView contentContainerStyle={styles.scrollView}>
         <ClothesContainer
-          title="Favourite Clothes..."
+          title="Your favourite clothes"
           items={mostPopular}
           onItemClick={handleItemClick}
         />
         <ClothesContainer
-          title="Recently worn Clothes..."
+          title="Your recently worn clothes"
           items={newest}
           onItemClick={handleItemClick}
         />
         <ClothesContainer
-          title="Accessories..."
+          title="Your accessories"
           items={accessories}
           onItemClick={handleItemClick}
         />
         <ClothesContainer
-          title="Newly added..."
+          title="Your newly added"
           items={newlyAdded}
           onItemClick={handleItemClick}
         />
         <ClothesContainer
-          title="These need some love..."
+          title="These need some love"
           items={needsSomeLoving}
           onItemClick={handleItemClick}
         />
@@ -154,7 +153,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f8f4f0",
   },
   scrollView: {
-    paddingBottom: 10, 
+    paddingBottom: 10,
   },
   errorContainer: {
     flex: 1,
