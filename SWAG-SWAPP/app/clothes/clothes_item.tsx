@@ -18,7 +18,7 @@ const clothes_item = () => {
   const [clotheItem, setClotheItem] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(null);
-  const [description, setDescription] = useState<string>(
+  const [description, setDescription] = useState(
     "This is a short description of the item."
   );
 
@@ -100,9 +100,8 @@ const clothes_item = () => {
       pathname: "/clothes/editClothesItem",
       params: {
         item_id: clotheItem.item_id,
-        description: description,
-        setDescription: setDescription,
       },
+      state: { description, setDescription },
     });
   };
 

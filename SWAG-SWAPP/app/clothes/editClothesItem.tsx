@@ -14,8 +14,14 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { Header } from "../Header";
 import { UserAccountContext } from "../_layout";
 
-interface editClothesItemprops {}
-const EditClothesItem = () => {
+interface EditClothesItemProps {
+  description: string;
+  setDescription: (value: string) => void;
+}
+const EditClothesItem: React.FC<EditClothesItemProps> = ({
+  description,
+  setDescription,
+}) => {
   const [userAccount] = useContext(UserAccountContext);
   const [clotheItem, setClotheItem] = useState(null);
   const [topCategory, setTopCategory] = useState("");
@@ -26,7 +32,7 @@ const EditClothesItem = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState("");
 
-  const { item_id, description, setDescription } = useLocalSearchParams();
+  const { item_id } = useLocalSearchParams();
   const router = useRouter();
 
   useEffect(() => {
@@ -120,9 +126,7 @@ const EditClothesItem = () => {
         <Text style={styles.label}>Description:</Text>
         <TextInput
           style={styles.textInput}
-          placeholder={
-            clotheItem.description || "This is a short description of the item."
-          }
+          placeholder={description}
           value={description}
           onChangeText={setDescription}
         />
