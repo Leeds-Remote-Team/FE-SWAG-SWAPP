@@ -125,10 +125,11 @@ const Dashboard = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Header onSearch={fetchData} />
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        <ClothesContainer
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <Header onSearch={fetchData} />
+        <ScrollView contentContainerStyle={styles.scrollView}>
+           <ClothesContainer
           title="Your favourite clothes"
           items={mostPopular}
           onItemClick={handleItemClick}
@@ -153,17 +154,18 @@ const Dashboard = () => {
           items={needsSomeLoving}
           onItemClick={handleItemClick}
         />
-        <View style={{ height: 100 }} />
-      </ScrollView>
+          <View style={{ height: 100 }} />
+        </ScrollView>
+      </View>
       <Footer />
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f8f4f0",
+    backgroundColor: "#f8f4f0", //color
   },
   scrollView: {
     paddingBottom: 10,

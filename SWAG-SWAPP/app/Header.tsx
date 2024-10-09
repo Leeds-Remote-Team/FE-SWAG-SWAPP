@@ -52,7 +52,7 @@ export const Header = ({ onSearch }) => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#EDE1D5",
     borderBottomWidth: 1,
     borderBottomColor: "#E0E0E0",
     shadowColor: "#000",

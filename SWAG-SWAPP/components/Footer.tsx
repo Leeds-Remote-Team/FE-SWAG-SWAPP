@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     width: "100%",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#EDE1D5",
     paddingVertical: 15,
     alignItems: "center",
     justifyContent: "center",
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   addButton: {
     backgroundColor: "#C79B71",
-    padding: 20,
+    padding: 12,
     borderRadius: 50,
     justifyContent: "center",
     alignItems: "center",

@@ -34,18 +34,15 @@ export default function newItem() {
   const [clothesName, setClothesName] = useState("");
   const [description, setDescription] = useState("");
   const router = useRouter();
-  if (colorTag === undefined) {
-    setColorTag("None");
-  }
 
   useEffect(() => {
+    if (colorTag === undefined) setColorTag("None");
+    
     tag.name = clothesName;
     tag.wear_frequency = 0;
     tag.date_last_worn = "New Item";
     tag.description = description;
-    console.log(colorTag);
 
-    console.log(colorTag, Color);
     setClothesData({
       user_id: user_id,
       img_url: postImage,
@@ -65,7 +62,6 @@ export default function newItem() {
     postClothes(user_id, clothesData).then((response) => {
       console.log(response.data.postedClothes);
     });
-
     router.push("/Dashboard");
   };
 
@@ -75,15 +71,14 @@ export default function newItem() {
   };
 
   const tagKeys = Object.keys({ ...tag });
-  let tagValues = [];
-  tagValues = [Object.values(tag)];
+  let tagValues = [Object.values(tag)];
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View>
         <ScrollView contentContainerStyle={styles.scrollView}>
           <View style={styles.container}>
-            <Image style={styles.image} source={postImage} src={postImage} />
+            <Image style={styles.image} source={{ uri: postImage }} />
+
             <TextInput
               style={styles.input}
               placeholder="Enter name of item..."
@@ -91,46 +86,48 @@ export default function newItem() {
               onChangeText={setClothesName}
             />
 
-          <View style={styles.tagContainer}>
-            {tagKeys.map((tag, index) => (
-              <View key={index} style={styles.tag}>
-                <Text style={styles.tagText}>
-                  {tag === "date_last_worn" || tag === "wear_frequency"
-                    ? ""
-                    : tag}{" "}
-                  {tag === "wear_frequency"
-                    ? "Never Worn"
-                    : tagValues[0][index] === "New Item"
-                    ? tagValues[0][index]
-                    : ": " + tagValues[0][index]}
-                </Text>
-              </View>
-            ))}
-          </View>
-
+            <View style={styles.tagContainer}>
+              {tagKeys.map((tag, index) => (
+                <View key={index} style={styles.tag}>
+                  <Text style={styles.tagText}>
+                    {tag === "date_last_worn" || tag === "wear_frequency"
+                      ? ""
+                      : tag}{" "}
+                    {tag === "wear_frequency"
+                      ? "Never Worn"
+                      : tagValues[0][index] === "New Item"
+                      ? tagValues[0][index]
+                      : ": " + tagValues[0][index]}
+                  </Text>
+                </View>
+              ))}
+            </View>
 
             <Text style={styles.descriptionLabel}>Description:</Text>
             <TextInput
-              style={styles.descriptionText}
+              style={styles.descriptionInput}
               placeholder="This is a short description of the item."
               value={description}
               onChangeText={setDescription}
+              multiline={true}
+              numberOfLines={4}
             />
           </View>
+
           <View style={styles.addButtonContainer}>
             <Pressable
               onPress={handlePress}
               style={styles.addItemButton}
               disabled={posting}
             >
-              <Text style={styles.addButtonText}> Add to Wardrobe </Text>
+              <Text style={styles.addButtonText}>Add to Wardrobe</Text>
             </Pressable>
+
             <Pressable onPress={handleRetake} disabled={posting}>
               <Icon name="reload-circle" size={55} color="#C79B71" />
             </Pressable>
           </View>
         </ScrollView>
-      </View>
     </SafeAreaView>
   );
 }
@@ -165,15 +162,13 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "flex-start",
     marginVertical: 10,
-    marginLeft: -5, 
   },
   tag: {
     backgroundColor: "#C79B71",
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 12,
-    margin: 5, 
-    minWidth: 100,
+    margin: 5,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -199,16 +194,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     marginBottom: 20,
     height: 100,
+    textAlignVertical: "top",
   },
-  buttonContainer: {
+  addButtonContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     alignItems: "center",
+    marginTop: 20,
   },
   addItemButton: {
     backgroundColor: "#C79B71",
     padding: 15,
     borderRadius: 50,
+    width: "60%",
+    alignItems: "center",
   },
   addButtonText: {
     color: "#fff",
