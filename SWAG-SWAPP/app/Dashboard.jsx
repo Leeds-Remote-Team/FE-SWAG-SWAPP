@@ -5,6 +5,7 @@ import {
   ScrollView,
   Text,
   ActivityIndicator,
+  SafeAreaView,
 } from "react-native";
 import { Header } from "./Header";
 import { ClothesContainer } from "./ClothesContainer";
@@ -18,6 +19,7 @@ import {
 import { ClothesContext } from "./_layout";
 import { useRouter } from "expo-router";
 import { Footer } from "../components/Footer";
+
 
 const Dashboard = () => {
   const user_id = 3;
@@ -46,7 +48,11 @@ const Dashboard = () => {
 
     fetchRecentlyWornClothes(user_id, searchText)
       .then((newClothes) => {
-        setNewest(newClothes);
+        console.log(newClothes);
+        const wornClothes = newClothes.filter(
+          (item) => item.tags.wear_frequency > 0
+        );
+        setNewest(wornClothes);
       })
       .catch(() => {
         setIsError("Failed to load your recently worn clothes.");
@@ -88,7 +94,7 @@ const Dashboard = () => {
   }, [user_id]);
 
   if (isLoading) {
-    return <ActivityIndicator size="large" color="#FF69B4" />;
+    return <ActivityIndicator size="large" color="#7B3F00" />;
   }
 
   if (isError) {

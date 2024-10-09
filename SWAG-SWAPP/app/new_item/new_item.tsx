@@ -6,6 +6,7 @@ import {
   Pressable,
   TextInput,
   ScrollView,
+  SafeAreaView,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { ClothesContext } from "../_layout";
@@ -33,12 +34,18 @@ export default function newItem() {
   const [clothesName, setClothesName] = useState("");
   const [description, setDescription] = useState("");
   const router = useRouter();
+  if (colorTag === undefined) {
+    setColorTag("None");
+  }
 
   useEffect(() => {
     tag.name = clothesName;
     tag.wear_frequency = 0;
-    tag.date_last_worn = "00/00/0000";
+    tag.date_last_worn = "New Item";
     tag.description = description;
+    console.log(colorTag);
+
+    console.log(colorTag, Color);
     setClothesData({
       user_id: user_id,
       img_url: postImage,
@@ -72,48 +79,59 @@ export default function newItem() {
   tagValues = [Object.values(tag)];
 
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        <Image style={styles.image} source={{ uri: postImage }} />
-        <TextInput
-          style={styles.input}
-          placeholder="Enter name of item..."
-          value={clothesName}
-          onChangeText={setClothesName}
-        />
+    <SafeAreaView style={{ flex: 1 }}>
+      <View>
+        <ScrollView contentContainerStyle={styles.scrollView}>
+          <View style={styles.container}>
+            <Image style={styles.image} source={postImage} src={postImage} />
+            <TextInput
+              style={styles.input}
+              placeholder="Enter name of item..."
+              value={clothesName}
+              onChangeText={setClothesName}
+            />
 
-        <View style={styles.tagContainer}>
-          {tagKeys.map((tag, index) => (
-            <View key={index} style={styles.tag}>
-              <Text style={styles.tagText}>
-                {tag}: {tagValues[0][index]}
-              </Text>
-            </View>
-          ))}
-        </View>
+          <View style={styles.tagContainer}>
+            {tagKeys.map((tag, index) => (
+              <View key={index} style={styles.tag}>
+                <Text style={styles.tagText}>
+                  {tag === "date_last_worn" || tag === "wear_frequency"
+                    ? ""
+                    : tag}{" "}
+                  {tag === "wear_frequency"
+                    ? "Never Worn"
+                    : tagValues[0][index] === "New Item"
+                    ? tagValues[0][index]
+                    : ": " + tagValues[0][index]}
+                </Text>
+              </View>
+            ))}
+          </View>
 
-        <Text style={styles.descriptionLabel}>Description:</Text>
-        <TextInput
-          style={styles.descriptionInput}
-          placeholder="This is a short description of the item."
-          value={description}
-          onChangeText={setDescription}
-          multiline
-        />
-        <View style={styles.buttonContainer}>
-          <Pressable
-            onPress={handlePress}
-            style={styles.addItemButton}
-            disabled={posting}
-          >
-            <Text style={styles.addButtonText}> Add to Wardrobe </Text>
-          </Pressable>
-          <Pressable onPress={handleRetake} disabled={posting}>
-            <Icon name="reload-circle" size={55} color="#C79B71" />
-          </Pressable>
-        </View>
-      </ScrollView>
-    </View>
+
+            <Text style={styles.descriptionLabel}>Description:</Text>
+            <TextInput
+              style={styles.descriptionText}
+              placeholder="This is a short description of the item."
+              value={description}
+              onChangeText={setDescription}
+            />
+          </View>
+          <View style={styles.addButtonContainer}>
+            <Pressable
+              onPress={handlePress}
+              style={styles.addItemButton}
+              disabled={posting}
+            >
+              <Text style={styles.addButtonText}> Add to Wardrobe </Text>
+            </Pressable>
+            <Pressable onPress={handleRetake} disabled={posting}>
+              <Icon name="reload-circle" size={55} color="#C79B71" />
+            </Pressable>
+          </View>
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 }
 

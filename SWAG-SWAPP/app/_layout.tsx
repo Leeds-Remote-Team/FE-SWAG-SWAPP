@@ -11,7 +11,7 @@ export default function RootLayout() {
   return (
     <UserAccountContext.Provider value={[userAccount, setUserAccount]}>
       <ClothesContext.Provider value={[clothesItems, setClothesItems]}>
-        <Stack>
+        <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="index" />
         </Stack>
       </ClothesContext.Provider>
