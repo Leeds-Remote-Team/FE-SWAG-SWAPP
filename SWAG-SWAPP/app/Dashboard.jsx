@@ -19,7 +19,6 @@ import { ClothesContext } from "./_layout";
 import { useRouter } from "expo-router";
 import { Footer } from "../components/Footer";
 
-
 export const Dashboard = () => {
   const user_id = 3;
   const [isLoading, setIsLoading] = useState(false);
@@ -121,6 +120,11 @@ export const Dashboard = () => {
           onItemClick={handleItemClick}
         />
         <ClothesContainer
+          title="Newly added..."
+          items={newlyAdded}
+          onItemClick={handleItemClick}
+        />
+        <ClothesContainer
           title="Recently worn Clothes..."
           items={newest}
           onItemClick={handleItemClick}
@@ -130,11 +134,7 @@ export const Dashboard = () => {
           items={accessories}
           onItemClick={handleItemClick}
         />
-        <ClothesContainer
-          title="Newly added..."
-          items={newlyAdded}
-          onItemClick={handleItemClick}
-        />
+
         <ClothesContainer
           title="These need some love..."
           items={needsSomeLoving}
