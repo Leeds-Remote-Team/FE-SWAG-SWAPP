@@ -72,6 +72,20 @@ const EditClothesItem = () => {
       });
   };
 
+  const handleDelete = () => {
+    axios
+      .delete(
+        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
+      )
+      .then(() => {
+        Alert.alert("Success!", "Item deleted successfully.");
+        router.push("/Dashboard");
+      })
+      .catch((err) => {
+        Alert.alert("Error", `Failed to delete item. Error: ${err}`);
+      });
+  };
+
   if (isLoading) {
     return (
       <View style={styles.loadingContainer}>
@@ -138,6 +152,10 @@ const EditClothesItem = () => {
       </Text>
       <Pressable style={styles.submitButton} onPress={handleSubmitEdit}>
         <Text style={styles.buttonText}>Submit Changes</Text>
+      </Pressable>
+
+      <Pressable style={styles.deleteButton} onPress={handleDelete}>
+        <Text style={styles.buttonText}>Delete Item</Text>
       </Pressable>
     </ScrollView>
   );
@@ -224,6 +242,14 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 20,
     color: "#e74c3c",
+  },
+
+  deleteButton: {
+    backgroundColor: "#FF0000",
+    padding: 15,
+    borderRadius: 10,
+    marginTop: 20,
+    alignItems: "center",
   },
 });
 
