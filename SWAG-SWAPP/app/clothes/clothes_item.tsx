@@ -33,9 +33,7 @@ const clothes_item = () => {
         )
         .then((response) => {
           setClotheItem(response.data[0]);
-          // setDescription(
-          //   response.data[0].tags.description || "this is a short description"
-          // );
+
           setIsLoading(false);
         })
         .catch((err) => {
@@ -98,6 +96,9 @@ const clothes_item = () => {
   };
 
   const handleEdit = () => {
+    setDescription(
+      clotheItem.tags.description || "this is a short description"
+    );
     router.push({
       pathname: "/clothes/editClothesItem",
       params: {

@@ -22,7 +22,7 @@ const EditClothesItem = () => {
   const [category, setCategory] = useState("");
   const [color, setColor] = useState("");
   const [description, setDescription] = useContext(DescriptionContext);
-  const [descriptionInput, setDescriptionInput] = useState("");
+  const [descriptionInput, setDescriptionInput] = useState(description || "");
 
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState("");
@@ -123,8 +123,8 @@ const EditClothesItem = () => {
         <TextInput
           style={styles.textInput}
           placeholder={description || "this is a short description"}
-          value={description}
-          onChangeText={setDescription}
+          value={descriptionInput}
+          onChangeText={setDescriptionInput}
         />
       </View>
 
