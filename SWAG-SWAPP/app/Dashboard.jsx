@@ -6,6 +6,7 @@ import {
   Text,
   ActivityIndicator,
   SafeAreaView,
+  Pressable,
 } from "react-native";
 import { Header } from "./Header";
 import { ClothesContainer } from "./ClothesContainer";
@@ -30,6 +31,7 @@ const Dashboard = () => {
   const [needsSomeLoving, setNeedsSomeLoving] = useState([]);
   const [newlyAdded, setNewlyAdded] = useState([]);
   const [clothesItems, setClothesItems] = useContext(ClothesContext);
+
   const router = useRouter();
 
   const fetchData = (searchText = "") => {
@@ -96,10 +98,21 @@ const Dashboard = () => {
     return <ActivityIndicator size="large" color="#7B3F00" />;
   }
 
+  const handleErrorClick = () => {
+    router.push({
+      pathname: "/Dashboard",
+    });
+  };
+
   if (isError) {
     return (
       <View style={styles.errorContainer}>
-        <Text style={styles.errorText}>{isError}</Text>
+        <Text style={styles.errorMessage}>
+          Sorry! You do not have any clothes that match this search
+        </Text>
+        <Pressable onPress={handleErrorClick}>
+          <Text style={styles.errorTextOkay}>Okay</Text>
+        </Pressable>
       </View>
     );
   }
@@ -156,15 +169,21 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   errorContainer: {
-    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f4f4f4",
+    padding: 15,
   },
   errorText: {
     fontSize: 18,
     color: "#e74c3c",
     textAlign: "center",
+    height: 50,
+  },
+  errorTextOkay: {
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor: "#FFFFFF",
   },
 });
 
