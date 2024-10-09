@@ -68,8 +68,15 @@ const clothes_item = () => {
     );
   }
 
-  const tags = [clotheItem.top_category, clotheItem.category, clotheItem.color];
-  console.log(clotheItem);
+  let tags = clotheItem.tags;
+  for (let item in tags) {
+    if (item === "") {
+      delete tags[item];
+    }
+  }
+
+  tags = [Object.values(tags)];
+
 
   const handleWearToday = () => {
     let newWearUpdate = {
@@ -110,47 +117,53 @@ const clothes_item = () => {
   };
 
   return (
-  <SafeAreaView style={{ flex: 1 }}>
-    <View style={styles.container}>
-      <ScrollView>
-        <Header onSearch={undefined} />
-        <Text style={styles.name}>
-          {clotheItem.tags.name ? clotheItem.tags.name : clotheItem.category}
-        </Text>
-        <Image
-          style={styles.image}
-          source={{
-            uri: clotheItem.img_url,
-          }}
-        />
-        <View style={styles.tagContainer}>
-          {tags.map((tag, index) => (
-            <View key={index} style={styles.tag}>
-              <Text style={styles.tagText}>{tag}</Text>
-            </View>
-          ))}
-        </View>
-        <Text style={styles.descriptionLabel}>Description:</Text>
-        <Text style={styles.descriptionText}>
-          {description
-            ? description
-            : clotheItem.tags.description || "this is a short description"}
-        </Text>
-        <Text style={styles.descriptionText}>
-          Last Worn: {clotheItem.tags.last_date_worn}
-        </Text>
-        <Text style={styles.descriptionText}>
-          Wear Frequency: {clotheItem.tags.wear_frequency}
-        </Text>
-        <Pressable style={styles.wearTodayButton} onPress={handleWearToday}>
-          <Text style={styles.buttonText}>Wear Today</Text>
-        </Pressable>
-        <Pressable style={styles.editButton} onPress={handleEdit}>
-          <Text style={styles.buttonText}>Edit Details</Text>
-        </Pressable>
-      </ScrollView>
-    </View>
-     </SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <ScrollView>
+          <Header onSearch={undefined} />
+          <Text style={styles.name}>
+            {clotheItem.tags.name ? clotheItem.tags.name : clotheItem.category}
+          </Text>
+          <Image
+            style={styles.image}
+            source={{
+              uri: clotheItem.img_url,
+            }}
+          />
+          <View style={styles.tagContainer}>
+            {tags[0].map((tag, index) => (
+              <View key={index} style={styles.tag}>
+                <Text style={styles.tagText}>{tag}</Text>
+              </View>
+            ))}
+          </View>
+          <Text style={styles.descriptionLabel}>Description:</Text>
+          <Text style={styles.descriptionText}>
+            {description
+              ? description
+              : clotheItem.tags.description || "this is a short description"}
+          </Text>
+          <Text style={styles.descriptionText}>
+            Top Category: {clotheItem.top_category}
+          </Text>
+          <Text style={styles.descriptionText}>
+            Category: {clotheItem.category}
+          </Text>
+          <Text style={styles.descriptionText}>
+            Last Worn: {clotheItem.tags.last_date_worn}
+          </Text>
+          <Text style={styles.descriptionText}>
+            Wear Frequency: {clotheItem.tags.wear_frequency}
+          </Text>
+          <Pressable style={styles.wearTodayButton} onPress={handleWearToday}>
+            <Text style={styles.buttonText}>Wear Today</Text>
+          </Pressable>
+          <Pressable style={styles.editButton} onPress={handleEdit}>
+            <Text style={styles.buttonText}>Edit Details</Text>
+          </Pressable>
+        </ScrollView>
+      </View>
+    </SafeAreaView>
   );
 };
 const styles = StyleSheet.create({
