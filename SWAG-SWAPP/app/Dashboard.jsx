@@ -11,7 +11,6 @@ import Icon from "react-native-vector-icons/Ionicons";
 import { Header } from "./Header";
 import { Link } from "expo-router";
 import { ClothesContainer } from "./ClothesContainer";
-import { fetchAllAccessories } from "../Helpers/fetchAllAccessories";
 import {
   fetchMostPopularClothes,
   fetchRecentlyWornClothes,
