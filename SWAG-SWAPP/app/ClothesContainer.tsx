@@ -30,7 +30,7 @@ export const ClothesContainer = ({ title, items, onItemClick }) => {
             onPress={() => onItemClick(item)}
           >
             <Image source={{ uri: item.img_url }} style={styles.image} />
-            <Text style={styles.itemText}>{item.category}</Text>
+            <Text style={styles.itemText}>{item.tags.name ? item.tags.name : item.category}</Text>
           </Pressable>
         ))}
       </ScrollView>

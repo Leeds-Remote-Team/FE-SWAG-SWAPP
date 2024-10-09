@@ -107,7 +107,7 @@ const clothes_item = () => {
       <ScrollView>
         <Header onSearch={undefined} />
         <Text style={styles.name}>
-          {clotheItem.name || "Clothes Item Name"}
+        {clotheItem.tags.name ? clotheItem.tags.name : clotheItem.category}
         </Text>
         <Image
           style={styles.image}
