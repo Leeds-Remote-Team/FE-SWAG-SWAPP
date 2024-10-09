@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, Pressable, StyleSheet, Alert } from "react-native";
+import { View, TextInput, Pressable, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 

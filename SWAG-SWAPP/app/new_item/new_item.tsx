@@ -4,7 +4,7 @@ import {
   Image,
   StyleSheet,
   Button,
-  TouchableOpacity,
+  Pressable,
   TextInput,
   ScrollView,
 } from "react-native";
@@ -101,17 +101,17 @@ export default function newItem() {
         </Text>
       </View>
       <View style={styles.addButtonContainer}>
-        <TouchableOpacity
+        <Pressable
           onPress={handlePress}
           style={styles.addItemButton}
           disabled={posting}
         >
           {/* <Icon name="shirt-outline" size={40} /> */}
           <Text style={styles.addButtonText}> Add to Wardrobe </Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handleRetake} disabled={posting}>
+        </Pressable>
+        <Pressable onPress={handleRetake} disabled={posting}>
           <Icon name="reload-circle" size={40} />
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );
