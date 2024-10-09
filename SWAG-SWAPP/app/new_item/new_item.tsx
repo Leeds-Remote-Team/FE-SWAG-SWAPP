@@ -32,6 +32,7 @@ export default function newItem() {
   const user_id = 3;
   const [clothesData, setClothesData] = useState({});
   const [clothesName, setClothesName] = useState("");
+  const [description, setDescription] = useState("");
   const router = useRouter();
 
   console.log(clothesItems);
@@ -39,7 +40,8 @@ export default function newItem() {
   useEffect(() => {
     tag.name = clothesName;
     tag.wear_frequency = 0;
-    tag.last_worn = "00/00/0000";
+    tag.date_last_worn = "00/00/0000";
+    tag.description = description;
     setClothesData({
       user_id: user_id,
       img_url: postImage,
@@ -49,7 +51,7 @@ export default function newItem() {
       color: colorTag,
     });
     setPosting(false);
-  }, [clothesName]);
+  }, [clothesName, description]);
 
   const postClothes = (user_id, clothesData) => {
     return api.post(`/clothes/${user_id}`, clothesData);
@@ -74,45 +76,48 @@ export default function newItem() {
 
   return (
     <View>
-      <View style={styles.container}>
-        <Image style={styles.image} source={postImage} src={postImage} />
-        <TextInput
-          style={styles.input}
-          placeholder="Enter name of item..."
-          value={clothesName}
-          onChangeText={setClothesName}
-        />
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        <View style={styles.container}>
+          <Image style={styles.image} source={postImage} src={postImage} />
+          <TextInput
+            style={styles.input}
+            placeholder="Enter name of item..."
+            value={clothesName}
+            onChangeText={setClothesName}
+          />
 
-        <View style={styles.tagContainer}>
-          {tagKeys.map((tag, index) => (
-            <View key={index} style={styles.tag}>
-              <Text style={styles.tagText}>
-                {tag}: {tagValues[0][index]}
-              </Text>
-            </View>
-          ))}
+          <View style={styles.tagContainer}>
+            {tagKeys.map((tag, index) => (
+              <View key={index} style={styles.tag}>
+                <Text style={styles.tagText}>
+                  {tag}: {tagValues[0][index]}
+                </Text>
+              </View>
+            ))}
+          </View>
+
+          <Text style={styles.descriptionLabel}>Description:</Text>
+          <TextInput
+            style={styles.descriptionText}
+            placeholder="This is a short description of the item."
+            value={description}
+            onChangeText={setDescription}
+          />
         </View>
+        <View style={styles.addButtonContainer}>
+          <TouchableOpacity
+            onPress={handlePress}
+            style={styles.addItemButton}
+            disabled={posting}
+          >
+            <Text style={styles.addButtonText}> Add to Wardrobe </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleRetake} disabled={posting}>
+            <Icon name="reload-circle" size={55} />
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
 
-        <Text style={styles.descriptionLabel}>Description:</Text>
-        <Text style={styles.descriptionText}>
-          This is an example of a description. I think the user should be able
-          to edit this manually no? Like this is my jumper I got, i got it as a
-          gift its old as hell and has no resale value... love it thought!
-        </Text>
-      </View>
-      <View style={styles.addButtonContainer}>
-        <Pressable
-          onPress={handlePress}
-          style={styles.addItemButton}
-          disabled={posting}
-        >
-          {/* <Icon name="shirt-outline" size={40} /> */}
-          <Text style={styles.addButtonText}> Add to Wardrobe </Text>
-        </Pressable>
-        <Pressable onPress={handleRetake} disabled={posting}>
-          <Icon name="reload-circle" size={40} />
-        </Pressable>
-      </View>
     </View>
   );
 }
@@ -128,10 +133,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#f5f5f5",
   },
   image: {
-    width: 365,
-    height: 400,
+    width: 300,
+    height: 300,
     borderRadius: 10,
     marginBottom: 20,
+    alignSelf: "center",
+    borderColor: "#ddd",
+    borderWidth: 1,
   },
   name: {
     fontSize: 24,
@@ -175,10 +183,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#7F8C8D",
     marginBottom: 5,
+    height: 60,
+    paddingLeft: 10,
   },
 
   buttonText: {
-    color: "#fff",
+    color: "white",
     fontSize: 18,
     textAlign: "center",
     fontWeight: "bold",
@@ -192,6 +202,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: "#FFFFFF",
     color: "black",
+  },
+  scrollView: {
+    paddingBottom: 100,
   },
   addButton: {
     display: "flex",
@@ -208,26 +221,21 @@ const styles = StyleSheet.create({
   },
   addButtonText: {
     display: "flex",
-    color: "black",
+    color: "white",
     fontSize: 14,
     justifyContent: "center",
   },
   addButtonContainer: {
     position: "absolute",
-    bottom: 30,
-    right: 20,
+    bottom: 0,
+    right: 5,
+    left: 5,
     justifyContent: "center",
     alignItems: "center",
   },
   addItemButton: {
-    backgroundColor: "#3498db",
+    backgroundColor: "#2f3640",
     padding: 15,
     borderRadius: 50,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 5,
-    color: "white",
   },
 });
