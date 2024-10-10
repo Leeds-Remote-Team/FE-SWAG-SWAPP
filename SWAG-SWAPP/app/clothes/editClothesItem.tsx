@@ -161,6 +161,7 @@ const EditClothesItem = () => {
       <Text style={styles.descriptionText}>
         Wear Frequency: {clotheItem.tags.wear_frequency}
       </Text>
+
       <Pressable style={styles.submitButton} onPress={handleSubmitEdit}>
         <Text style={styles.buttonText}>Submit Changes</Text>
       </Pressable>
@@ -254,9 +255,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#e74c3c",
   },
-
   deleteButton: {
-    backgroundColor: "#800020",
+    backgroundColor: "#800020", 
     padding: 15,
     borderRadius: 10,
     marginTop: 20,

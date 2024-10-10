@@ -23,7 +23,6 @@ const clothes_item = () => {
   const [description, setDescription] = useContext(DescriptionContext);
 
   const { item_id } = useLocalSearchParams();
-
   const router = useRouter();
 
   useEffect(() => {
@@ -34,7 +33,6 @@ const clothes_item = () => {
         )
         .then((response) => {
           setClotheItem(response.data[0]);
-
           setIsLoading(false);
         })
         .catch((err) => {
@@ -69,7 +67,6 @@ const clothes_item = () => {
   }
 
   let tags = clotheItem.tags;
-
   for (let key in tags) {
     if (tags[key] === "") {
       delete tags[key];
@@ -169,6 +166,7 @@ const clothes_item = () => {
     </SafeAreaView>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -198,7 +196,7 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   tag: {
-    backgroundColor: "#ececec",
+    backgroundColor: "#C79B71",
     paddingVertical: 5,
     paddingHorizontal: 15,
     borderRadius: 15,
@@ -206,7 +204,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   tagText: {
-    color: "#2f3640",
+    color: "#fff",
     fontSize: 14,
     fontWeight: "bold",
   },
@@ -222,14 +220,14 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   wearTodayButton: {
-    backgroundColor: "#C79B71",
+    backgroundColor: "#C79B71", 
     padding: 15,
     borderRadius: 10,
     marginTop: 20,
     alignItems: "center",
   },
   editButton: {
-    backgroundColor: "#C79B71",
+    backgroundColor: "#C79B71", 
     padding: 15,
     borderRadius: 10,
     marginTop: 15,

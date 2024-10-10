@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { View, TextInput, Pressable, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useRouter } from "expo-router";
-import { Logo } from "@/components/Logo";
 
 export const Header = ({ onSearch }) => {
   const [searchText, setSearchText] = useState("");
