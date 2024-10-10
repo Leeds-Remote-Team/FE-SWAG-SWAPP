@@ -51,7 +51,8 @@ const Dashboard = () => {
       .then((newClothes) => {
         console.log("Recently Worn Clothes Data:", newClothes);
         const wornClothes = newClothes.filter(
-          (item) => item.tags.last_date_worn && item.tags.last_date_worn !== "New Item"
+          (item) =>
+            item.tags.last_date_worn && item.tags.last_date_worn !== "New Item"
         );
         setNewest(wornClothes);
       })
@@ -134,6 +135,13 @@ const Dashboard = () => {
             items={mostPopular}
             onItemClick={handleItemClick}
           />
+
+          <ClothesContainer
+            title="Your newly added"
+            items={newlyAdded}
+            onItemClick={handleItemClick}
+          />
+
           <ClothesContainer
             title="Your recently worn clothes"
             items={newest}
@@ -144,11 +152,7 @@ const Dashboard = () => {
             items={accessories}
             onItemClick={handleItemClick}
           />
-          <ClothesContainer
-            title="Your newly added"
-            items={newlyAdded}
-            onItemClick={handleItemClick}
-          />
+
           <ClothesContainer
             title="These need some love"
             items={needsSomeLoving}

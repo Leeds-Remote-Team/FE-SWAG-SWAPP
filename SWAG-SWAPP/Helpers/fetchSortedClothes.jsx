@@ -17,7 +17,7 @@ export const fetchMostPopularClothes = (user_id, searchText = "") => {
 };
 
 export const fetchNeedsSomeLovingClothes = (user_id, searchText = "") => {
-  return fetchSortedClothes("wear_frequency", "asc", user_id, searchText);
+  return fetchSortedClothes("last_date_worn", "asc", user_id, searchText);
 };
 
 export const fetchRecentlyWornClothes = (user_id, searchText = "") => {
