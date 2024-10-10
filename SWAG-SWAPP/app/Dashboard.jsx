@@ -49,9 +49,9 @@ const Dashboard = () => {
 
     fetchRecentlyWornClothes(user_id, searchText)
       .then((newClothes) => {
-        console.log(newClothes);
+        console.log("Recently Worn Clothes Data:", newClothes);
         const wornClothes = newClothes.filter(
-          (item) => item.tags.wear_frequency > 0
+          (item) => item.tags.last_date_worn && item.tags.last_date_worn !== "New Item"
         );
         setNewest(wornClothes);
       })
@@ -129,31 +129,31 @@ const Dashboard = () => {
       <View style={styles.container}>
         <Header onSearch={fetchData} />
         <ScrollView contentContainerStyle={styles.scrollView}>
-           <ClothesContainer
-          title="Your favourite clothes"
-          items={mostPopular}
-          onItemClick={handleItemClick}
-        />
-        <ClothesContainer
-          title="Your recently worn clothes"
-          items={newest}
-          onItemClick={handleItemClick}
-        />
-        <ClothesContainer
-          title="Your accessories"
-          items={accessories}
-          onItemClick={handleItemClick}
-        />
-        <ClothesContainer
-          title="Your newly added"
-          items={newlyAdded}
-          onItemClick={handleItemClick}
-        />
-        <ClothesContainer
-          title="These need some love"
-          items={needsSomeLoving}
-          onItemClick={handleItemClick}
-        />
+          <ClothesContainer
+            title="Your favourite clothes"
+            items={mostPopular}
+            onItemClick={handleItemClick}
+          />
+          <ClothesContainer
+            title="Your recently worn clothes"
+            items={newest}
+            onItemClick={handleItemClick}
+          />
+          <ClothesContainer
+            title="Your accessories"
+            items={accessories}
+            onItemClick={handleItemClick}
+          />
+          <ClothesContainer
+            title="Your newly added"
+            items={newlyAdded}
+            onItemClick={handleItemClick}
+          />
+          <ClothesContainer
+            title="These need some love"
+            items={needsSomeLoving}
+            onItemClick={handleItemClick}
+          />
           <View style={{ height: 100 }} />
         </ScrollView>
       </View>

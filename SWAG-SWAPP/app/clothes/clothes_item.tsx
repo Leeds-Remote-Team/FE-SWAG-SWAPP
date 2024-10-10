@@ -30,7 +30,7 @@ const clothes_item = () => {
     if (item_id) {
       axios
         .get(
-          `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
+          `https://be-swagswapp.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
         )
         .then((response) => {
           setClotheItem(response.data[0]);
@@ -85,9 +85,10 @@ const clothes_item = () => {
       last_date_worn: new Date().toISOString().split("T")[0],
       wear_frequency: clotheItem.tags.wear_frequency + 1,
     };
+
     axios
       .patch(
-        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`,
+        `https://be-swagswapp.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`,
         newWearUpdate
       )
       .then(() => {

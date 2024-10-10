@@ -15,7 +15,7 @@ import axios from "axios";
 import { useRouter } from "expo-router";
 
 const api = axios.create({
-  baseURL: "https://swagswapp-api.onrender.com/api",
+  baseURL: "https://be-swagswapp.onrender.com/api",
 });
 
 export default function newItem() {

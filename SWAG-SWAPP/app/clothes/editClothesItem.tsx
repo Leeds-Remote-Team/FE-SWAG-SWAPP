@@ -34,7 +34,7 @@ const EditClothesItem = () => {
     if (item_id) {
       axios
         .get(
-          `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
+          `https://be-swagswapp.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
         )
         .then((response) => {
           const item = response.data[0];
@@ -60,7 +60,7 @@ const EditClothesItem = () => {
 
     axios
       .patch(
-        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`,
+        `https://be-swagswapp.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`,
         newDetails
       )
       .then(() => {
@@ -79,7 +79,7 @@ const EditClothesItem = () => {
   const handleDelete = () => {
     axios
       .delete(
-        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
+        `https://be-swagswapp.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
       )
       .then(() => {
         Alert.alert("Success!", "Item deleted successfully.");

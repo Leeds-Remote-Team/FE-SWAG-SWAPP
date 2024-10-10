@@ -1,5 +1,5 @@
 export const fetchSortedClothes = (sortBy, order, user_id, searchText) => {
-  const url = `https://swagswapp-api.onrender.com/api/clothes/${user_id}?sortBy=${sortBy}&order=${order}&searchText=${searchText}`;
+  const url = `https://be-swagswapp.onrender.com/api/clothes/${user_id}?sortBy=${sortBy}&order=${order}&searchText=${searchText}`;
   return fetch(url)
     .then((response) => {
       if (!response.ok) {
