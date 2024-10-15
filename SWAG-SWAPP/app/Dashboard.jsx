@@ -134,13 +134,11 @@ const Dashboard = () => {
             items={mostPopular}
             onItemClick={handleItemClick}
           />
-
           <ClothesContainer
             title="Your newly added"
             items={newlyAdded}
             onItemClick={handleItemClick}
           />
-
           <ClothesContainer
             title="Your recently worn clothes"
             items={newest}
@@ -151,7 +149,6 @@ const Dashboard = () => {
             items={accessories}
             onItemClick={handleItemClick}
           />
-
           <ClothesContainer
             title="Still need these / SELL.."
             items={needsSomeLoving}
