@@ -60,7 +60,7 @@ export default function newItem() {
 
   const handlePress = () => {
     postClothes(user_id, clothesData).then((response) => {
-      console.log(response.data.postedClothes);
+      response.data.postedClothes
     });
     router.push("/Dashboard");
   };

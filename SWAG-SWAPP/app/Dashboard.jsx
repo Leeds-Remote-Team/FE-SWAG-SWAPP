@@ -49,7 +49,6 @@ const Dashboard = () => {
 
     fetchRecentlyWornClothes(user_id, searchText)
       .then((newClothes) => {
-        console.log("Recently Worn Clothes Data:", newClothes);
         const wornClothes = newClothes.filter(
           (item) =>
             item.tags.last_date_worn && item.tags.last_date_worn !== "New Item"
@@ -154,7 +153,7 @@ const Dashboard = () => {
           />
 
           <ClothesContainer
-            title="These need some love"
+            title="Still need these / SELL.."
             items={needsSomeLoving}
             onItemClick={handleItemClick}
           />
