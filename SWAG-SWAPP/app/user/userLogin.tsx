@@ -30,7 +30,7 @@ export default function UserLogin() {
     }
     setIsLoading(true);
     axios
-      .get(`https://swagswapp-api.onrender.com/api/users/3`)
+      .get(`https://be-swagswapp.onrender.com/api/users/3`)
       .then((response) => {
         setUserAccount(response.data);
         setIsLoading(false);

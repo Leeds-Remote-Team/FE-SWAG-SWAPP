@@ -38,7 +38,7 @@ export default function UserSignup() {
     };
     setIsLoading(true);
     axios
-      .post(`https://swagswapp-api.onrender.com/api/users`, newUser)
+      .post(`https://be-swagswapp.onrender.com/api/users`, newUser)
       .then((response) => {
         setUserAccount(newUser);
         setIsLoading(false);

@@ -49,9 +49,9 @@ const Dashboard = () => {
 
     fetchRecentlyWornClothes(user_id, searchText)
       .then((newClothes) => {
-        console.log(newClothes);
         const wornClothes = newClothes.filter(
-          (item) => item.tags.wear_frequency > 0
+          (item) =>
+            item.tags.last_date_worn && item.tags.last_date_worn !== "New Item"
         );
         setNewest(wornClothes);
       })
@@ -150,7 +150,7 @@ const Dashboard = () => {
             onItemClick={handleItemClick}
           />
           <ClothesContainer
-            title="These need some love"
+            title="Still need these / SELL.."
             items={needsSomeLoving}
             onItemClick={handleItemClick}
           />
@@ -165,7 +165,7 @@ const Dashboard = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f8f4f0", //color
+    backgroundColor: "#f8f4f0",
   },
   scrollView: {
     paddingBottom: 10,

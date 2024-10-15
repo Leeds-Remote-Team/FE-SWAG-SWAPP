@@ -34,7 +34,7 @@ const EditClothesItem = () => {
     if (item_id) {
       axios
         .get(
-          `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
+          `https://be-swagswapp.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
         )
         .then((response) => {
           const item = response.data[0];
@@ -60,7 +60,7 @@ const EditClothesItem = () => {
 
     axios
       .patch(
-        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`,
+        `https://be-swagswapp.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`,
         newDetails
       )
       .then(() => {
@@ -79,7 +79,7 @@ const EditClothesItem = () => {
   const handleDelete = () => {
     axios
       .delete(
-        `https://swagswapp-api.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
+        `https://be-swagswapp.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
       )
       .then(() => {
         Alert.alert("Success!", "Item deleted successfully.");
@@ -161,6 +161,7 @@ const EditClothesItem = () => {
       <Text style={styles.descriptionText}>
         Wear Frequency: {clotheItem.tags.wear_frequency}
       </Text>
+
       <Pressable style={styles.submitButton} onPress={handleSubmitEdit}>
         <Text style={styles.buttonText}>Submit Changes</Text>
       </Pressable>
@@ -254,9 +255,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#e74c3c",
   },
-
   deleteButton: {
-    backgroundColor: "#800020",
+    backgroundColor: "#800020", 
     padding: 15,
     borderRadius: 10,
     marginTop: 20,

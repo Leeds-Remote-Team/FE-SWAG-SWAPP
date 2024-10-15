@@ -2,9 +2,7 @@ import { CameraView, CameraType, useCameraPermissions } from "expo-camera";
 import { useContext, useEffect, useRef, useState } from "react";
 import Icon from "react-native-vector-icons/Ionicons";
 import {
-  AppRegistry,
   Button,
-  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -15,13 +13,12 @@ import axios from "axios";
 import { Redirect } from "expo-router";
 
 const supabase = createClient(
-  "https://uhqkbcxmjnqjhwbmupzq.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVocWtiY3htam5xamh3Ym11cHpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjc0Mjg3MzgsImV4cCI6MjA0MzAwNDczOH0.meeCMyXfLWNLgmU7b0RAWQMYXwemFFZ6ZSJTe5cvLfw"
+  "https://xbahoxnpicnirgdxbngw.supabase.co", // Updated URL
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhiYWhveG5waWNuaXJnZHhibmd3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg1MjEzMDcsImV4cCI6MjA0NDA5NzMwN30.nuXrfK9gzTUbjZRZKPa2ZvJsVFMosaOUUm4CAXWod1Y" // Updated API key
 );
 import { ClothesContext } from "../_layout";
 
 export default function cameraFunc() {
-  console.log("In camera");
   const cameraRef = useRef(null);
   const [facing, setFacing] = useState<CameraType>("back");
   const [permission, requestPermission] = useCameraPermissions();
@@ -36,25 +33,25 @@ export default function cameraFunc() {
       sendImage(clothesImage.uri);
       axios
         .post(
-          "https://api.ximilar.com/tagging/fashion/v2/detect_tags",
+          "https://api.ximilar.com/tagging/fashion/v2/detect_tags", // Ximilar API for tagging
           {
             records: [
               {
-                _base64: clothesImage.base64, // Use "_base64" to send the image in base64 format
+                _base64: clothesImage.base64, // Sending image in base64 format
               },
             ],
           },
           {
             headers: {
               Authorization: "Token fa62910f8e5841247fb5e78d409d38d0cc1fef46",
-              "Content-Type": "application/json", // Ensure JSON format for the request body
+              "Content-Type": "application/json", 
             },
           }
         )
         .then((response) => {
           let responseObject = response.data.records[0]._objects;
           responseObject.url =
-            "https://uhqkbcxmjnqjhwbmupzq.supabase.co/storage/v1/object/public/ClothingImages/" +
+            "https://xbahoxnpicnirgdxbngw.supabase.co/storage/v1/object/public/ClothingImages/" + // Updated Supabase storage URL
             fileName;
           setClothesItems(responseObject);
         })
@@ -65,13 +62,11 @@ export default function cameraFunc() {
   }, [clothesImage]);
 
   if (!permission) {
-    // Camera permissions are still loading.
     return <View />;
   }
 
   let fileName = "";
   if (!permission.granted) {
-    // Camera permissions are not granted yet.
     return (
       <View style={styles.container}>
         <Text style={styles.message}>
@@ -94,11 +89,11 @@ export default function cameraFunc() {
         upsert: false,
       });
     if (error) {
-      console.log("error uploading image:", error);
+      console.log("Error uploading image:", error);
     }
   };
 
-  const hanldeTakePhoto = async () => {
+  const handleTakePhoto = async () => {
     if (cameraRef.current) {
       const takenPhoto = await cameraRef.current.takePictureAsync({
         base64: true,
@@ -123,7 +118,7 @@ export default function cameraFunc() {
             <Text style={styles.text}>Flip Camera</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.cameraButton} onPress={hanldeTakePhoto}>
+        <TouchableOpacity style={styles.cameraButton} onPress={handleTakePhoto}>
           <Icon name="camera" size={65} color="white" />
         </TouchableOpacity>
       </CameraView>

@@ -15,7 +15,7 @@ import axios from "axios";
 import { useRouter } from "expo-router";
 
 const api = axios.create({
-  baseURL: "https://swagswapp-api.onrender.com/api",
+  baseURL: "https://be-swagswapp.onrender.com/api",
 });
 
 export default function newItem() {
@@ -60,7 +60,7 @@ export default function newItem() {
 
   const handlePress = () => {
     postClothes(user_id, clothesData).then((response) => {
-      console.log(response.data.postedClothes);
+      response.data.postedClothes
     });
     router.push("/Dashboard");
   };
