@@ -1,50 +1,21 @@
-# Welcome to your Expo app 👋
+Welcome to Swag Swapp!
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is your virtual wardrobe application where you can view all of your clothes at your fingertips.
 
-## Get started
+All you need to do is take a photo of an item or clothing and this will be stored in your app - with added fashion tags thanks to Ximiliar's AI fashion tagging API!
 
-1. Install dependencies
+This app was made with JavaScript, Express, postgreSQL, Ximiliar API, SupaBase, Render, TDD, React Native, Expo and NodeJS.
 
-   ```bash
-   npm install
-   ```
+To view this app, please clone and enter the github repo: https://github.com/Leeds-Remote-Team/FE-SWAG-SWAPP
 
-2. Start the app
+Now install the dependancies: "npm install"
 
-   ```bash
-    npx expo start
-   ```
+Then use "npm run dev" to start-up the app.
 
-In the output, you'll find options to open the app in a
+Please bare in mind, this app is designed for andoid and ios.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+To view on your phone, download the Expo Go app in the play/app store on your mobile device and scan the barcode in the terminal with your phone's camera.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Alternatively, you can view on a webpage by following the link: http://localhost:8081
 
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+This portfolio project was created as part of a Digital Skills Bootcamp in Software Engineering provided by Northcoders.
