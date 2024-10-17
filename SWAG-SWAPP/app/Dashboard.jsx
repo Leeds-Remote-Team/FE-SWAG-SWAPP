@@ -150,7 +150,7 @@ const Dashboard = () => {
             onItemClick={handleItemClick}
           />
           <ClothesContainer
-            title="Still need these / SELL.."
+            title="Still need these?"
             items={needsSomeLoving}
             onItemClick={handleItemClick}
           />
