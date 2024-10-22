@@ -12,7 +12,7 @@ Now install the dependancies: "npm install"
 
 Then use "npm run dev" to start-up the app.
 
-Please bare in mind, this app is designed for andoid and ios.
+Please bare in mind, this app is designed for android and ios.
 
 To view on your phone, download the Expo Go app in the play/app store on your mobile device and scan the barcode in the terminal with your phone's camera.
 
