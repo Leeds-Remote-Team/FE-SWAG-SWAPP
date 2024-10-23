@@ -9,13 +9,16 @@ import {
   ScrollView,
   Alert,
 } from "react-native";
-import axios from "axios";
+import { fetchClothesByUserId } from "../../Helpers/fetchClothesById";
+import { patchClothesItemByUserId } from "../../Helpers/patchClothesItemByUserId";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { Header } from "../Header";
 import { UserAccountContext } from "../_layout";
 import { DescriptionContext } from "../_layout";
+import { deleteClothesByUserId } from "../../Helpers/deleteClothesItemByUserId";
 
 const EditClothesItem = () => {
+  const user_id = 3;
   const [userAccount] = useContext(UserAccountContext);
   const [clotheItem, setClotheItem] = useState(null);
   const [topCategory, setTopCategory] = useState("");
@@ -32,12 +35,9 @@ const EditClothesItem = () => {
 
   useEffect(() => {
     if (item_id) {
-      axios
-        .get(
-          `https://be-swagswapp.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
-        )
+      fetchClothesByUserId(user_id, item_id)
         .then((response) => {
-          const item = response.data[0];
+          const item = response[0];
           setClotheItem(item);
           setTopCategory(item.top_category);
           setCategory(item.category);
@@ -58,11 +58,7 @@ const EditClothesItem = () => {
       color: color,
     };
 
-    axios
-      .patch(
-        `https://be-swagswapp.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`,
-        newDetails
-      )
+    patchClothesItemByUserId(user_id, item_id, newDetails)
       .then(() => {
         setDescription(descriptionInput);
         Alert.alert("Success!", "Clothes updated successfully.");
@@ -77,10 +73,7 @@ const EditClothesItem = () => {
   };
 
   const handleDelete = () => {
-    axios
-      .delete(
-        `https://be-swagswapp.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
-      )
+    deleteClothesByUserId(user_id, item_id)
       .then(() => {
         Alert.alert("Success!", "Item deleted successfully.");
         router.push("/Dashboard");
@@ -256,7 +249,7 @@ const styles = StyleSheet.create({
     color: "#e74c3c",
   },
   deleteButton: {
-    backgroundColor: "#800020", 
+    backgroundColor: "#800020",
     padding: 15,
     borderRadius: 10,
     marginTop: 20,

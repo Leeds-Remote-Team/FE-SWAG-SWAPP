@@ -49,11 +49,7 @@ const Dashboard = () => {
 
     fetchRecentlyWornClothes(user_id, searchText)
       .then((newClothes) => {
-        const wornClothes = newClothes.filter(
-          (item) =>
-            item.tags.last_date_worn && item.tags.last_date_worn !== "New Item"
-        );
-        setNewest(wornClothes);
+        setNewest(newClothes);
       })
       .catch(() => {
         setIsError("Failed to load your recently worn clothes.");
@@ -68,11 +64,8 @@ const Dashboard = () => {
       });
 
     fetchAccessories(user_id, searchText)
-      .then((data) => {
-        const filteredData = data.filter(
-          (item) => item.top_category === "accessories"
-        );
-        setAccessories(filteredData);
+      .then((accessories) => {
+        setAccessories(accessories);
       })
       .catch(() => {
         setIsError("Failed to load your accessories.");
