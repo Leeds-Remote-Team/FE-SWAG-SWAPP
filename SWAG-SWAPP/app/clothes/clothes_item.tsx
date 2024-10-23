@@ -10,10 +10,11 @@ import {
   SafeAreaView,
 } from "react-native";
 import { Header } from "../Header";
-import axios from "axios";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { UserAccountContext } from "../_layout";
 import { DescriptionContext } from "../_layout";
+import { fetchClothesByUserId } from "../../Helpers/fetchClothesById";
+import { patchWearUpdateByUserId } from "../../Helpers/patchWearUpdateByUserId";
 
 const clothes_item = () => {
   const [userAccount] = useContext(UserAccountContext);
@@ -22,17 +23,15 @@ const clothes_item = () => {
   const [isError, setIsError] = useState(null);
   const [description, setDescription] = useContext(DescriptionContext);
 
+  const user_id = 3;
   const { item_id } = useLocalSearchParams();
   const router = useRouter();
 
   useEffect(() => {
     if (item_id) {
-      axios
-        .get(
-          `https://be-swagswapp.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`
-        )
+      fetchClothesByUserId(user_id, item_id)
         .then((response) => {
-          setClotheItem(response.data[0]);
+          setClotheItem(response[0]);
           setIsLoading(false);
         })
         .catch((err) => {
@@ -88,11 +87,7 @@ const clothes_item = () => {
       wear_frequency: clotheItem.tags.wear_frequency + 1,
     };
 
-    axios
-      .patch(
-        `https://be-swagswapp.onrender.com/api/clothes/${userAccount.user_id}/${item_id}`,
-        newWearUpdate
-      )
+    patchWearUpdateByUserId(user_id, item_id, newWearUpdate)
       .then(() => {
         setClotheItem((prevState) => ({
           ...prevState,
@@ -225,14 +220,14 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   wearTodayButton: {
-    backgroundColor: "#C79B71", 
+    backgroundColor: "#C79B71",
     padding: 15,
     borderRadius: 10,
     marginTop: 20,
     alignItems: "center",
   },
   editButton: {
-    backgroundColor: "#C79B71", 
+    backgroundColor: "#C79B71",
     padding: 15,
     borderRadius: 10,
     marginTop: 15,

@@ -21,7 +21,14 @@ export const fetchNeedsSomeLovingClothes = (user_id, searchText = "") => {
 };
 
 export const fetchRecentlyWornClothes = (user_id, searchText = "") => {
-  return fetchSortedClothes("last_date_worn", "desc", user_id, searchText);
+  return fetchSortedClothes("last_date_worn", "desc", user_id, searchText).then(
+    (data) => {
+      const filteredData = data.filter(
+        (item) => item.tags.last_date_worn !== "New Item"
+      );
+      return filteredData;
+    }
+  );
 };
 
 export const fetchNewlyAddedClothes = (user_id, searchText = "") => {
@@ -29,5 +36,12 @@ export const fetchNewlyAddedClothes = (user_id, searchText = "") => {
 };
 
 export const fetchAccessories = (user_id, searchText = "") => {
-  return fetchSortedClothes("wear_frequency", "desc", user_id, searchText);
+  return fetchSortedClothes("wear_frequency", "desc", user_id, searchText).then(
+    (data) => {
+      const filteredData = data.filter(
+        (item) => item.top_category === "accessories"
+      );
+      return filteredData;
+    }
+  );
 };
